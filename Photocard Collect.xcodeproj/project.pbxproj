@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312643129FEF980001C4B53 /* Photocard_CollectApp.swift */; };
+		8312643429FEF980001C4B53 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312643329FEF980001C4B53 /* ContentView.swift */; };
+		8312643629FEF982001C4B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8312643529FEF982001C4B53 /* Assets.xcassets */; };
+		8312643929FEF982001C4B53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8312643829FEF982001C4B53 /* Preview Assets.xcassets */; };
+		8312644329FEF983001C4B53 /* Photocard_CollectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644229FEF983001C4B53 /* Photocard_CollectTests.swift */; };
+		8312644D29FEF983001C4B53 /* Photocard_CollectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644C29FEF983001C4B53 /* Photocard_CollectUITests.swift */; };
+		8312644F29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644E29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift */; };
+		8312645C29FEF995001C4B53 /* Photocard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312645B29FEF995001C4B53 /* Photocard.swift */; };
+		8312645E29FEF9C5001C4B53 /* PhotocardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312645D29FEF9C5001C4B53 /* PhotocardView.swift */; };
+		8312646029FEF9D4001C4B53 /* FolderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312645F29FEF9D4001C4B53 /* FolderList.swift */; };
+		8312646229FEFB5F001C4B53 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312646129FEFB5F001C4B53 /* Folder.swift */; };
+		8312646429FEFBCA001C4B53 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312646329FEFBCA001C4B53 /* FolderView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8312643F29FEF982001C4B53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8312642629FEF980001C4B53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8312642D29FEF980001C4B53;
+			remoteInfo = "Photocard Collect";
+		};
+		8312644929FEF983001C4B53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8312642629FEF980001C4B53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8312642D29FEF980001C4B53;
+			remoteInfo = "Photocard Collect";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8312642E29FEF980001C4B53 /* Photocard Collect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photocard Collect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8312643129FEF980001C4B53 /* Photocard_CollectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photocard_CollectApp.swift; sourceTree = "<group>"; };
+		8312643329FEF980001C4B53 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8312643529FEF982001C4B53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8312643829FEF982001C4B53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8312643E29FEF982001C4B53 /* Photocard CollectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photocard CollectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8312644229FEF983001C4B53 /* Photocard_CollectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photocard_CollectTests.swift; sourceTree = "<group>"; };
+		8312644829FEF983001C4B53 /* Photocard CollectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photocard CollectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8312644C29FEF983001C4B53 /* Photocard_CollectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photocard_CollectUITests.swift; sourceTree = "<group>"; };
+		8312644E29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photocard_CollectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8312645B29FEF995001C4B53 /* Photocard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photocard.swift; sourceTree = "<group>"; };
+		8312645D29FEF9C5001C4B53 /* PhotocardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotocardView.swift; sourceTree = "<group>"; };
+		8312645F29FEF9D4001C4B53 /* FolderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderList.swift; sourceTree = "<group>"; };
+		8312646129FEFB5F001C4B53 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		8312646329FEFBCA001C4B53 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8312642B29FEF980001C4B53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312643B29FEF982001C4B53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312644529FEF983001C4B53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8312642529FEF980001C4B53 = {
+			isa = PBXGroup;
+			children = (
+				8312643029FEF980001C4B53 /* Photocard Collect */,
+				8312644129FEF983001C4B53 /* Photocard CollectTests */,
+				8312644B29FEF983001C4B53 /* Photocard CollectUITests */,
+				8312642F29FEF980001C4B53 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8312642F29FEF980001C4B53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8312642E29FEF980001C4B53 /* Photocard Collect.app */,
+				8312643E29FEF982001C4B53 /* Photocard CollectTests.xctest */,
+				8312644829FEF983001C4B53 /* Photocard CollectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8312643029FEF980001C4B53 /* Photocard Collect */ = {
+			isa = PBXGroup;
+			children = (
+				8312643129FEF980001C4B53 /* Photocard_CollectApp.swift */,
+				8312643329FEF980001C4B53 /* ContentView.swift */,
+				8312643529FEF982001C4B53 /* Assets.xcassets */,
+				8312643729FEF982001C4B53 /* Preview Content */,
+				8312645B29FEF995001C4B53 /* Photocard.swift */,
+				8312645D29FEF9C5001C4B53 /* PhotocardView.swift */,
+				8312645F29FEF9D4001C4B53 /* FolderList.swift */,
+				8312646129FEFB5F001C4B53 /* Folder.swift */,
+				8312646329FEFBCA001C4B53 /* FolderView.swift */,
+			);
+			path = "Photocard Collect";
+			sourceTree = "<group>";
+		};
+		8312643729FEF982001C4B53 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8312643829FEF982001C4B53 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8312644129FEF983001C4B53 /* Photocard CollectTests */ = {
+			isa = PBXGroup;
+			children = (
+				8312644229FEF983001C4B53 /* Photocard_CollectTests.swift */,
+			);
+			path = "Photocard CollectTests";
+			sourceTree = "<group>";
+		};
+		8312644B29FEF983001C4B53 /* Photocard CollectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8312644C29FEF983001C4B53 /* Photocard_CollectUITests.swift */,
+				8312644E29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift */,
+			);
+			path = "Photocard CollectUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8312642D29FEF980001C4B53 /* Photocard Collect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8312645229FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard Collect" */;
+			buildPhases = (
+				8312642A29FEF980001C4B53 /* Sources */,
+				8312642B29FEF980001C4B53 /* Frameworks */,
+				8312642C29FEF980001C4B53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Photocard Collect";
+			productName = "Photocard Collect";
+			productReference = 8312642E29FEF980001C4B53 /* Photocard Collect.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8312643D29FEF982001C4B53 /* Photocard CollectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8312645529FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard CollectTests" */;
+			buildPhases = (
+				8312643A29FEF982001C4B53 /* Sources */,
+				8312643B29FEF982001C4B53 /* Frameworks */,
+				8312643C29FEF982001C4B53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8312644029FEF982001C4B53 /* PBXTargetDependency */,
+			);
+			name = "Photocard CollectTests";
+			productName = "Photocard CollectTests";
+			productReference = 8312643E29FEF982001C4B53 /* Photocard CollectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8312644729FEF983001C4B53 /* Photocard CollectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8312645829FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard CollectUITests" */;
+			buildPhases = (
+				8312644429FEF983001C4B53 /* Sources */,
+				8312644529FEF983001C4B53 /* Frameworks */,
+				8312644629FEF983001C4B53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8312644A29FEF983001C4B53 /* PBXTargetDependency */,
+			);
+			name = "Photocard CollectUITests";
+			productName = "Photocard CollectUITests";
+			productReference = 8312644829FEF983001C4B53 /* Photocard CollectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8312642629FEF980001C4B53 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					8312642D29FEF980001C4B53 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					8312643D29FEF982001C4B53 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 8312642D29FEF980001C4B53;
+					};
+					8312644729FEF983001C4B53 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 8312642D29FEF980001C4B53;
+					};
+				};
+			};
+			buildConfigurationList = 8312642929FEF980001C4B53 /* Build configuration list for PBXProject "Photocard Collect" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8312642529FEF980001C4B53;
+			productRefGroup = 8312642F29FEF980001C4B53 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8312642D29FEF980001C4B53 /* Photocard Collect */,
+				8312643D29FEF982001C4B53 /* Photocard CollectTests */,
+				8312644729FEF983001C4B53 /* Photocard CollectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8312642C29FEF980001C4B53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8312643929FEF982001C4B53 /* Preview Assets.xcassets in Resources */,
+				8312643629FEF982001C4B53 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312643C29FEF982001C4B53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312644629FEF983001C4B53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8312642A29FEF980001C4B53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8312643429FEF980001C4B53 /* ContentView.swift in Sources */,
+				8312646429FEFBCA001C4B53 /* FolderView.swift in Sources */,
+				8312646029FEF9D4001C4B53 /* FolderList.swift in Sources */,
+				8312645E29FEF9C5001C4B53 /* PhotocardView.swift in Sources */,
+				8312645C29FEF995001C4B53 /* Photocard.swift in Sources */,
+				8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */,
+				8312646229FEFB5F001C4B53 /* Folder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312643A29FEF982001C4B53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8312644329FEF983001C4B53 /* Photocard_CollectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8312644429FEF983001C4B53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8312644F29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift in Sources */,
+				8312644D29FEF983001C4B53 /* Photocard_CollectUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8312644029FEF982001C4B53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8312642D29FEF980001C4B53 /* Photocard Collect */;
+			targetProxy = 8312643F29FEF982001C4B53 /* PBXContainerItemProxy */;
+		};
+		8312644A29FEF983001C4B53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8312642D29FEF980001C4B53 /* Photocard Collect */;
+			targetProxy = 8312644929FEF983001C4B53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8312645029FEF983001C4B53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8312645129FEF983001C4B53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8312645329FEF983001C4B53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Photocard Collect/Preview Content\"";
+				DEVELOPMENT_TEAM = F5983WM83D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-Collect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8312645429FEF983001C4B53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Photocard Collect/Preview Content\"";
+				DEVELOPMENT_TEAM = F5983WM83D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-Collect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8312645629FEF983001C4B53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5983WM83D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-CollectTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photocard Collect.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photocard Collect";
+			};
+			name = Debug;
+		};
+		8312645729FEF983001C4B53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5983WM83D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-CollectTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photocard Collect.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photocard Collect";
+			};
+			name = Release;
+		};
+		8312645929FEF983001C4B53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5983WM83D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-CollectUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Photocard Collect";
+			};
+			name = Debug;
+		};
+		8312645A29FEF983001C4B53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5983WM83D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-CollectUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Photocard Collect";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8312642929FEF980001C4B53 /* Build configuration list for PBXProject "Photocard Collect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8312645029FEF983001C4B53 /* Debug */,
+				8312645129FEF983001C4B53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8312645229FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard Collect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8312645329FEF983001C4B53 /* Debug */,
+				8312645429FEF983001C4B53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8312645529FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard CollectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8312645629FEF983001C4B53 /* Debug */,
+				8312645729FEF983001C4B53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8312645829FEF983001C4B53 /* Build configuration list for PBXNativeTarget "Photocard CollectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8312645929FEF983001C4B53 /* Debug */,
+				8312645A29FEF983001C4B53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8312642629FEF980001C4B53 /* Project object */;
+}
