@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 struct FolderList: View {
     @State private var folders: [Folder] = []
     @State private var showAddFolderSheet = false
@@ -6,8 +7,9 @@ struct FolderList: View {
     @State private var newFolderName = ""
     @State private var newFolderImage: UIImage?
     @State private var selectedFolder: Folder?
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
+        
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(folders) { folder in
@@ -17,10 +19,12 @@ struct FolderList: View {
                                 Image(uiImage: icon)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 150, height: 150)
+                                    .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                             } else {
                                 Image(systemName: "folder")
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 150, height: 150)
+                                    .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                             }
                             Text(folder.name)
                         }
@@ -80,7 +84,12 @@ struct FolderList: View {
                         selectedFolder = nil
                     },
                     trailing: Button(selectedFolder == nil ? "Save" : "Update") {
-                        if let folderIndex = folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
+                        if newFolderImage == nil {
+                            // Display an alert informing the user that an image is required to save the folder
+                            let alert = UIAlertController(title: "Image Required", message: "Please select an image for the folder.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default))
+                            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+                        } else if let folderIndex = folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
                             // Create a new folder with the entered name and icon
                             let updatedFolder = Folder(
                                 name: newFolderName.isEmpty ? selectedFolder!.name : newFolderName,
@@ -89,15 +98,18 @@ struct FolderList: View {
                             )
                             // Replace the old folder with the updated folder
                             folders[folderIndex] = updatedFolder
+                            showAddFolderSheet = false
+                            selectedFolder = nil
                         } else {
                             // Create a new folder with the entered name and icon
                             let newFolder = Folder(name: newFolderName, icon: newFolderImage, photocards: [])
                             folders.append(newFolder)
+                            showAddFolderSheet = false
+                            selectedFolder = nil
                         }
-                        showAddFolderSheet = false
-                        selectedFolder = nil
                     }
                     .disabled(selectedFolder == nil && newFolderName.isEmpty)
+
                 )
                 .sheet(isPresented: $showImagePicker) {
                     ImagePicker(selectedImage: $newFolderImage)
@@ -108,6 +120,10 @@ struct FolderList: View {
                         newFolderName = folder.name
                         newFolderImage = folder.icon
                     }
+                }
+                .onDisappear {
+                    newFolderName = ""
+                    newFolderImage = nil
                 }
             }
         }

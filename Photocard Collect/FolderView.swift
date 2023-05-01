@@ -1,6 +1,6 @@
+
 import SwiftUI
 import UIKit
-
 struct FolderView: View {
     @State private var folder: Folder
     @State private var showImagePicker = false
@@ -9,6 +9,9 @@ struct FolderView: View {
     @State private var newName = ""
 
     var body: some View {
+        var sortedPhotocards: [Int] {
+            folder.photocards.indices.sorted { folder.photocards[$0].isCollected == false && folder.photocards[$1].isCollected == true }
+        }
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(folder.photocards.indices, id: \.self) { index in
