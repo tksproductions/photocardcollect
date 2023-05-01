@@ -50,7 +50,7 @@ struct FolderList: View {
                 }
             }
         }
-        .navigationTitle("Photocard Collection")
+        .navigationTitle("Idols")
         .navigationBarItems(trailing: Button(action: {
             showAddFolderSheet = true
         }) {
@@ -84,7 +84,12 @@ struct FolderList: View {
                         selectedFolder = nil
                     },
                     trailing: Button(selectedFolder == nil ? "Save" : "Update") {
-                        if newFolderImage == nil {
+                        if newFolderName.isEmpty {
+                            // Display an alert informing the user that a name is required to save the folder
+                            let alert = UIAlertController(title: "Name Required", message: "Please enter a name for the folder.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default))
+                            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+                        } else if newFolderImage == nil {
                             // Display an alert informing the user that an image is required to save the folder
                             let alert = UIAlertController(title: "Image Required", message: "Please select an image for the folder.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -92,8 +97,8 @@ struct FolderList: View {
                         } else if let folderIndex = folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
                             // Create a new folder with the entered name and icon
                             let updatedFolder = Folder(
-                                name: newFolderName.isEmpty ? selectedFolder!.name : newFolderName,
-                                icon: newFolderImage ?? selectedFolder!.icon,
+                                name: newFolderName,
+                                icon: newFolderImage!,
                                 photocards: selectedFolder!.photocards
                             )
                             // Replace the old folder with the updated folder
@@ -108,9 +113,11 @@ struct FolderList: View {
                             selectedFolder = nil
                         }
                     }
-                    .disabled(selectedFolder == nil && newFolderName.isEmpty)
-
+                    .disabled(newFolderName.isEmpty || newFolderImage == nil)
                 )
+
+
+                
                 .sheet(isPresented: $showImagePicker) {
                     ImagePicker(selectedImage: $newFolderImage)
                 }

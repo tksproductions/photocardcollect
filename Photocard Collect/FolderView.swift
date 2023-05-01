@@ -1,4 +1,3 @@
-
 import SwiftUI
 import UIKit
 struct FolderView: View {
@@ -8,6 +7,7 @@ struct FolderView: View {
     @State private var showRenameAlert = false
     @State private var newName = ""
 
+    @available(iOS 15.0, *)
     var body: some View {
         var sortedPhotocards: [Int] {
             folder.photocards.indices.sorted { folder.photocards[$0].isCollected == false && folder.photocards[$1].isCollected == true }
@@ -16,11 +16,18 @@ struct FolderView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(folder.photocards.indices, id: \.self) { index in
                     PhotocardView(photocard: $folder.photocards[index])
+                        .contextMenu {
+                            Button(action: {
+                                folder.photocards.removeAll(where: { $0.id == $folder.photocards[index].id })
+                            }) {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                 }
             }
             .padding()
         }
-        .navigationTitle(folder.name)
+        .navigationTitle(folder.name + " Photocards")
         .navigationBarItems(
             trailing: Button(action: {
                 // Show the image picker when the user taps the plus button
@@ -54,6 +61,7 @@ struct FolderView: View {
                 .padding()
         }
     }
+
 
     init(folder: Folder) {
         _folder = State(initialValue: folder)
