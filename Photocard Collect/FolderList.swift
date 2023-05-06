@@ -12,10 +12,10 @@ struct FolderList: View {
         
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
-                ForEach(folders) { folder in
-                    NavigationLink(destination: FolderView(folder: folder)) {
+                ForEach(folders.indices, id: \.self) { index in
+                    NavigationLink(destination: FolderView(folder: $folders[index])) {
                         VStack {
-                            if let icon = folder.icon {
+                            if let icon = folders[index].icon {
                                 Image(uiImage: icon)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -26,12 +26,13 @@ struct FolderList: View {
                                     .frame(width: 150, height: 150)
                                     .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                             }
-                            Text(folder.name)
+                            Text(folders[index].name)
+                                .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                         }
                         .contextMenu {
                             Button(action: {
                                 // Set the selected folder to the current folder
-                                selectedFolder = folder
+                                selectedFolder = folders[index]
                                 // Show the sheet to edit the folder
                                 showAddFolderSheet = true
                             }) {
@@ -40,7 +41,7 @@ struct FolderList: View {
                             }
                             Button(action: {
                                 // Remove the folder from the list
-                                folders.removeAll(where: { $0.id == folder.id })
+                                folders.removeAll(where: { $0.id == folders[index].id })
                             }) {
                                 Text("Delete")
                                 Image(systemName: "trash")
@@ -48,14 +49,21 @@ struct FolderList: View {
                         }
                     }
                 }
+
             }
         }
         .navigationTitle("Idols")
-        .navigationBarItems(trailing: Button(action: {
-            showAddFolderSheet = true
-        }) {
-            Image(systemName: "plus")
-        })
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showAddFolderSheet = true
+                }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        
         .sheet(isPresented: $showAddFolderSheet) {
             NavigationView {
                 Form {
@@ -88,12 +96,12 @@ struct FolderList: View {
                             // Display an alert informing the user that a name is required to save the folder
                             let alert = UIAlertController(title: "Name Required", message: "Please enter a name for the folder.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default))
-                            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+                            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }; window.rootViewController?.present(alert, animated: true, completion: nil)
                         } else if newFolderImage == nil {
                             // Display an alert informing the user that an image is required to save the folder
                             let alert = UIAlertController(title: "Image Required", message: "Please select an image for the folder.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default))
-                            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+                            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }; window.rootViewController?.present(alert, animated: true, completion: nil)
                         } else if let folderIndex = folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
                             // Create a new folder with the entered name and icon
                             let updatedFolder = Folder(

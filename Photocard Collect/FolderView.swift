@@ -1,12 +1,12 @@
 import SwiftUI
 import UIKit
 struct FolderView: View {
-    @State private var folder: Folder
+    @Binding private var folder: Folder
     @State private var showImagePicker = false
     @State private var selectedImage: UIImage?
     @State private var showRenameAlert = false
     @State private var newName = ""
-
+    @Environment(\.colorScheme) var colorScheme
     @available(iOS 15.0, *)
     var body: some View {
         var sortedPhotocards: [Int] {
@@ -63,8 +63,8 @@ struct FolderView: View {
     }
 
 
-    init(folder: Folder) {
-        _folder = State(initialValue: folder)
+    init(folder: Binding<Folder>) {
+        _folder = folder
     }
 }
 
