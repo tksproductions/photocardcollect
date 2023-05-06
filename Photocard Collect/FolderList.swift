@@ -9,21 +9,23 @@ struct FolderList: View {
     @State private var selectedFolder: Folder?
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(folders.indices, id: \.self) { index in
+                    
                     NavigationLink(destination: FolderView(folder: $folders[index])) {
                         VStack {
                             if let icon = folders[index].icon {
                                 Image(uiImage: icon)
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 150, height: 150)
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 175, height: 175)
                                     .border(colorScheme == .light ? Color.black : Color.white, width: 2)
+                                    .clipped()
                             } else {
                                 Image(systemName: "folder")
-                                    .frame(width: 150, height: 150)
+                                    .frame(width: 175, height: 175)
+                                    .contentShape(Rectangle())
                                     .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                             }
                             Text(folders[index].name)
@@ -49,10 +51,11 @@ struct FolderList: View {
                         }
                     }
                 }
-
+                .padding(.top, 20) // add a padding to move the idols down
             }
         }
         .navigationTitle("Idols")
+        
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -91,6 +94,7 @@ struct FolderList: View {
                         showAddFolderSheet = false
                         selectedFolder = nil
                     },
+                    
                     trailing: Button(selectedFolder == nil ? "Save" : "Update") {
                         if newFolderName.isEmpty {
                             // Display an alert informing the user that a name is required to save the folder
@@ -124,7 +128,7 @@ struct FolderList: View {
                     .disabled(newFolderName.isEmpty || newFolderImage == nil)
                 )
 
-
+                .accentColor(Color(hex: "FF2E98"))
                 
                 .sheet(isPresented: $showImagePicker) {
                     ImagePicker(selectedImage: $newFolderImage)
@@ -143,4 +147,5 @@ struct FolderList: View {
             }
         }
     }
+    
 }

@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+
 struct FolderView: View {
     @Binding private var folder: Folder
     @State private var showImagePicker = false
@@ -7,6 +8,7 @@ struct FolderView: View {
     @State private var showRenameAlert = false
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
+    
     @available(iOS 15.0, *)
     var body: some View {
         var sortedPhotocards: [Int] {
@@ -28,12 +30,21 @@ struct FolderView: View {
             .padding()
         }
         .navigationTitle(folder.name + " Photocards")
+        .navigationBarBackButtonHidden(true)
         .navigationBarItems(
+            leading: Button(action: {
+                // Navigate back to the folder list view when the user taps the back button
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(Color(hex: "FF2E98"))
+            },
             trailing: Button(action: {
                 // Show the image picker when the user taps the plus button
                 showImagePicker = true
             }) {
                 Image(systemName: "plus")
+                    .foregroundColor(Color(hex: "FF2E98"))
             }
             .sheet(isPresented: $showImagePicker, onDismiss: {
                 // Add the selected image to the folder when the user dismisses the image picker
@@ -61,7 +72,8 @@ struct FolderView: View {
                 .padding()
         }
     }
-
+    
+    @Environment(\.presentationMode) var presentationMode
 
     init(folder: Binding<Folder>) {
         _folder = folder

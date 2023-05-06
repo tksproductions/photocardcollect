@@ -5,7 +5,6 @@ struct ContentView: View {
         NavigationView {
             FolderList()
                 .navigationTitle("Photocard Collection")
-                .colorScheme(.dark)
                 .accentColor(Color(hex: "FF2E98"))
         }
     }
