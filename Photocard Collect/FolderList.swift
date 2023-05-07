@@ -16,7 +16,7 @@ struct FolderList: View {
                     NavigationLink(destination: FolderView(folder: $userData.folders[index]).environmentObject(userData)) {
                         // ...
                         VStack {
-                            if let icon = userData.folders[index].iconImage {
+                            if let icon = userData.folders[index].icon {
                                 Image(uiImage: icon)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
@@ -139,7 +139,7 @@ struct FolderList: View {
                     // If a folder was selected, pre-populate the form with its data
                     if let folder = selectedFolder {
                         newFolderName = folder.name
-                        newFolderImage = folder.iconImage
+                        newFolderImage = folder.icon
                     }
                 }
                 .onDisappear {
