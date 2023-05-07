@@ -6,7 +6,7 @@ struct PhotocardView: View {
     
     var body: some View {
         ZStack {
-            Image(uiImage: photocard.image)
+            Image(uiImage: photocard.uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 165, height: 255)

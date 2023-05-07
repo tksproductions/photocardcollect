@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 struct FolderView: View {
+    @EnvironmentObject private var userData: UserData
     @Binding private var folder: Folder
     @State private var showImagePicker = false
     @State private var selectedImage: UIImage?
@@ -17,10 +18,11 @@ struct FolderView: View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(folder.photocards.indices, id: \.self) { index in
-                    PhotocardView(photocard: $folder.photocards[index])
+                    PhotocardView(photocard: $folder.photocards[index]).environmentObject(userData)
                         .contextMenu {
                             Button(action: {
                                 folder.photocards.removeAll(where: { $0.id == $folder.photocards[index].id })
+                                userData.saveFolders()
                             }) {
                                 Label("Delete", systemImage: "trash")
                             }

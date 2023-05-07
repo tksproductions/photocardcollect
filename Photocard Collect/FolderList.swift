@@ -1,21 +1,22 @@
 import SwiftUI
 import UIKit
 struct FolderList: View {
-    @State private var folders: [Folder] = []
     @State private var showAddFolderSheet = false
     @State private var showImagePicker = false
     @State private var newFolderName = ""
     @State private var newFolderImage: UIImage?
     @State private var selectedFolder: Folder?
+    @StateObject private var userData = UserData()
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
-                ForEach(folders.indices, id: \.self) { index in
+                ForEach(userData.folders.indices, id: \.self) { index in
                     
-                    NavigationLink(destination: FolderView(folder: $folders[index])) {
+                    NavigationLink(destination: FolderView(folder: $userData.folders[index]).environmentObject(userData)) {
+                        // ...
                         VStack {
-                            if let icon = folders[index].icon {
+                            if let icon = userData.folders[index].iconImage {
                                 Image(uiImage: icon)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
@@ -28,13 +29,13 @@ struct FolderList: View {
                                     .contentShape(Rectangle())
                                     .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                             }
-                            Text(folders[index].name)
+                            Text(userData.folders[index].name)
                                 .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                         }
                         .contextMenu {
                             Button(action: {
                                 // Set the selected folder to the current folder
-                                selectedFolder = folders[index]
+                                selectedFolder = userData.folders[index]
                                 // Show the sheet to edit the folder
                                 showAddFolderSheet = true
                             }) {
@@ -43,7 +44,8 @@ struct FolderList: View {
                             }
                             Button(action: {
                                 // Remove the folder from the list
-                                folders.removeAll(where: { $0.id == folders[index].id })
+                                userData.folders.removeAll(where: { $0.id == userData.folders[index].id })
+                                userData.saveFolders()
                             }) {
                                 Text("Delete")
                                 Image(systemName: "trash")
@@ -106,7 +108,7 @@ struct FolderList: View {
                             let alert = UIAlertController(title: "Image Required", message: "Please select an image for the folder.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default))
                             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }; window.rootViewController?.present(alert, animated: true, completion: nil)
-                        } else if let folderIndex = folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
+                        } else if let folderIndex = userData.folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
                             // Create a new folder with the entered name and icon
                             let updatedFolder = Folder(
                                 name: newFolderName,
@@ -114,13 +116,13 @@ struct FolderList: View {
                                 photocards: selectedFolder!.photocards
                             )
                             // Replace the old folder with the updated folder
-                            folders[folderIndex] = updatedFolder
+                            userData.folders[folderIndex] = updatedFolder
                             showAddFolderSheet = false
                             selectedFolder = nil
                         } else {
                             // Create a new folder with the entered name and icon
                             let newFolder = Folder(name: newFolderName, icon: newFolderImage, photocards: [])
-                            folders.append(newFolder)
+                            userData.folders.append(newFolder)
                             showAddFolderSheet = false
                             selectedFolder = nil
                         }
@@ -137,7 +139,7 @@ struct FolderList: View {
                     // If a folder was selected, pre-populate the form with its data
                     if let folder = selectedFolder {
                         newFolderName = folder.name
-                        newFolderImage = folder.icon
+                        newFolderImage = folder.iconImage
                     }
                 }
                 .onDisappear {
