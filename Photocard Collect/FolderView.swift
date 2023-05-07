@@ -1,11 +1,12 @@
 import SwiftUI
 import UIKit
+import PhotosUI
 
 struct FolderView: View {
     @EnvironmentObject private var userData: UserData
     @Binding private var folder: Folder
     @State private var showImagePicker = false
-    @State private var selectedImage: UIImage?
+    @State private var selectedImages: [UIImage] = []
     @State private var showRenameAlert = false
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
@@ -50,14 +51,14 @@ struct FolderView: View {
                     .foregroundColor(Color(hex: "FF2E98"))
             }
             .sheet(isPresented: $showImagePicker, onDismiss: {
-                // Add the selected image to the folder when the user dismisses the image picker
-                if let selectedImage = selectedImage {
-                    folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
-                }
-            }) {
-                // Present the image picker
-                ImagePicker(selectedImage: $selectedImage)
-            }
+                for selectedImage in selectedImages {
+                                    folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
+                                }
+                                selectedImages.removeAll()
+                            }) {
+                                // Present the image picker
+                                ImagePicker(selectedImages: $selectedImages)
+                            }
         )
         .alert(isPresented: $showRenameAlert) {
             Alert(
@@ -89,36 +90,46 @@ struct FolderView: View {
 }
 
 struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
+    @Binding var selectedImages: [UIImage]
 
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = context.coordinator
-        return imagePicker
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 0
+        config.filter = .images
+
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(selectedImage: $selectedImage)
+        Coordinator(selectedImages: $selectedImages)
     }
 
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        @Binding var selectedImage: UIImage?
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        @Binding var selectedImages: [UIImage]
 
-        init(selectedImage: Binding<UIImage?>) {
-            _selectedImage = selectedImage
+        init(selectedImages: Binding<[UIImage]>) {
+            _selectedImages = selectedImages
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                selectedImage = image
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true, completion: nil)
+            
+            let itemProviders = results.map(\.itemProvider)
+            for itemProvider in itemProviders {
+                if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                    itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                        DispatchQueue.main.async {
+                            if let image = image as? UIImage {
+                                self?.selectedImages.append(image)
+                            }
+                        }
+                    }
+                }
             }
-            picker.dismiss(animated: true, completion: nil)
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true, completion: nil)
         }
     }
 }
