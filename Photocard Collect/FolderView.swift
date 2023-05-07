@@ -17,7 +17,7 @@ struct FolderView: View {
         }
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
-                ForEach(folder.photocards.indices, id: \.self) { index in
+                ForEach(sortedPhotocards, id: \.self) { index in
                     PhotocardView(photocard: $folder.photocards[index]).environmentObject(userData)
                         .contextMenu {
                             Button(action: {
@@ -28,6 +28,7 @@ struct FolderView: View {
                             }
                         }
                 }
+                .onMove(perform: move)
             }
             .padding()
         }
@@ -79,6 +80,11 @@ struct FolderView: View {
 
     init(folder: Binding<Folder>) {
         _folder = folder
+    }
+    
+    private func move(from source: IndexSet, to destination: Int) {
+        folder.photocards.move(fromOffsets: source, toOffset: destination)
+        userData.saveFolders()
     }
 }
 

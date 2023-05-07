@@ -7,14 +7,17 @@ struct FolderList: View {
     @State private var newFolderImage: UIImage?
     @State private var selectedFolder: Folder?
     @StateObject private var userData = UserData()
+    @State private var editMode = false
     @Environment(\.colorScheme) var colorScheme
+    @State private var showInstructionsPopover = false
+    @State private var showFolderOrderingView = false
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
                 ForEach(userData.folders.indices, id: \.self) { index in
                     
                     NavigationLink(destination: FolderView(folder: $userData.folders[index]).environmentObject(userData)) {
-                        // ...
+
                         VStack {
                             if let icon = userData.folders[index].icon {
                                 Image(uiImage: icon)
@@ -56,10 +59,36 @@ struct FolderList: View {
                 .padding(.top, 20) // add a padding to move the idols down
             }
         }
-        .navigationTitle("Idols")
         
+        .navigationTitle("Idols")
+        .popover(isPresented: $showInstructionsPopover, arrowEdge: .top) {
+            VStack {
+                Text("Info")
+                    .font(.headline)
+                    .padding(.top)
+                Divider()
+                Text("- Created by @beomgyulix\n- Tap on a photocard to toggle its collected state\n- Press and hold on an idol/photocard to edit/delete\n")
+                    .padding()
+            }
+            .frame(width: 400, height: 400)
+        }
+
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showInstructionsPopover = true
+                }) {
+                    Image(systemName: "info.circle")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showFolderOrderingView = true
+                }) {
+                    Label("Reorder", systemImage: "list.bullet")
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showAddFolderSheet = true
@@ -67,7 +96,14 @@ struct FolderList: View {
                     Image(systemName: "plus")
                 }
             }
+            
+
         }
+
+        .sheet(isPresented: $showFolderOrderingView) {
+            FolderOrderingView(folders: $userData.folders)
+        }
+
         
         .sheet(isPresented: $showAddFolderSheet) {
             NavigationView {
@@ -90,6 +126,7 @@ struct FolderList: View {
                         }
                     }
                 }
+                
                 .navigationBarTitle(selectedFolder == nil ? "New Idol" : "Edit Idol")
                 .navigationBarItems(
                     leading: Button("Cancel") {
@@ -130,10 +167,9 @@ struct FolderList: View {
                     .disabled(newFolderName.isEmpty || newFolderImage == nil)
                 )
 
-                .accentColor(Color(hex: "FF2E98"))
                 
                 .sheet(isPresented: $showImagePicker) {
-                    ImagePicker(selectedImage: $newFolderImage)
+                    ImagePicker2(selectedImage: $newFolderImage)
                 }
                 .onAppear {
                     // If a folder was selected, pre-populate the form with its data
@@ -150,4 +186,39 @@ struct FolderList: View {
         }
     }
     
+}
+
+struct ImagePicker2: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = context.coordinator
+        return imagePicker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(binding: $selectedImage)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        @Binding var selectedImage: UIImage?
+
+        init(binding: Binding<UIImage?>) {
+            _selectedImage = binding
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                selectedImage = image
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
 }

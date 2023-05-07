@@ -20,6 +20,7 @@
 		8312646229FEFB5F001C4B53 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312646129FEFB5F001C4B53 /* Folder.swift */; };
 		8312646429FEFBCA001C4B53 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312646329FEFBCA001C4B53 /* FolderView.swift */; };
 		8390499E2A0742B9003CD366 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390499D2A0742B9003CD366 /* UserData.swift */; };
+		839049A42A076284003CD366 /* FolderOrderingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839049A32A076284003CD366 /* FolderOrderingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		8312646129FEFB5F001C4B53 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		8312646329FEFBCA001C4B53 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		8390499D2A0742B9003CD366 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		839049A32A076284003CD366 /* FolderOrderingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderOrderingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				8312646129FEFB5F001C4B53 /* Folder.swift */,
 				8312646329FEFBCA001C4B53 /* FolderView.swift */,
 				8390499D2A0742B9003CD366 /* UserData.swift */,
+				839049A32A076284003CD366 /* FolderOrderingView.swift */,
 			);
 			path = "Photocard Collect";
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				8312645E29FEF9C5001C4B53 /* PhotocardView.swift in Sources */,
 				8312645C29FEF995001C4B53 /* Photocard.swift in Sources */,
 				8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */,
+				839049A42A076284003CD366 /* FolderOrderingView.swift in Sources */,
 				8312646229FEFB5F001C4B53 /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,7 @@ struct PhotocardView: View {
             }
         }
         .frame(width: 165, height: 255)
-        .contentShape(Rectangle()) // Add this line to limit the interactive area
+        .contentShape(Rectangle())
         .onTapGesture {
             photocard.isCollected.toggle()
         }
