@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 @main
 struct Photocard_CollectApp: App {
     var body: some Scene {

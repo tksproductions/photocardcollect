@@ -67,7 +67,7 @@ struct FolderList: View {
                     .font(.headline)
                     .padding(.top)
                 Divider()
-                Text("- Created by @beomgyulix\n- Tap on a photocard to toggle its collected state\n- Press and hold on an idol/photocard to edit/delete\n")
+                Text("- Created by @beomgyulix\n- Tap on a photocard to toggle its collected state\n- Tap and hold on an idol/photocard to edit/delete\n- Tap the sparkles to convert a template into photocards (WIP feature)")
                     .padding()
             }
             .frame(width: 400, height: 400)

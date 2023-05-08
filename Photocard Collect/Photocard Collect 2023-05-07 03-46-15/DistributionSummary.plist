@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Photocard Collect.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>2DAD7B059E11ABFEB27363C72D68B5C77369DB33</string>
+				<key>dateExpires</key>
+				<string>4/19/24</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>F5983WM83D.com.tsproductions.pcollect</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>F5983WM83D</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Photocard Collect.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>616ef139-5efc-443e-abaa-de0483a65a2d</string>
+				<key>dateExpires</key>
+				<string>4/19/24</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.tsproductions.pcollect</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>F5983WM83D</string>
+				<key>name</key>
+				<string>Tinnie Sassano</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

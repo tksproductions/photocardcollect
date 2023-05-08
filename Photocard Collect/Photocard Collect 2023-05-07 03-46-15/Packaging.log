@@ -1,0 +1,162 @@
+2023-05-07 07:46:03 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7f7f970a3100; archive(resolved)="<IDEArchive: 0x6000421c0420>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	Chain (16, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7f7f970a3100; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x7f7fb8343a50; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7fa7ea13f0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f9fcc1650; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7fa06593d0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f8511eb00; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7fb6407e50; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f93828190; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f983562d0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f82d82cd0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f82d86a60; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f983f8150; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f84634090; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600005033000; teamID='F5983WM83D', teamName='Tinnie Sassano', teamType='Individual', username='tinnie.sassano@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x7f7f82d7f8a0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="(null)">
+	<IDEDistributionContext: 0x7f7f93958040; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0x60003878cc30>", team="(null)">
+	<IDEDistributionContext: 0x7f7f9fcbf1d0; archive = "<IDEArchive: 0x6000421c0420>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x7f7f970a3100>
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCreateDestRootStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCopyItemStep
+2023-05-07 07:46:03 +0000  Running /usr/bin/ditto '-V' '/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app'
+2023-05-07 07:46:03 +0000  >>> Copying /Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app 
+2023-05-07 07:46:03 +0000  copying file ./_CodeSignature/CodeResources ... 
+2023-05-07 07:46:03 +0000  2775 bytes for ./_CodeSignature/CodeResources
+2023-05-07 07:46:03 +0000  copying file ./AppIcon60x60@2x.png ... 
+2023-05-07 07:46:03 +0000  1993 bytes for ./AppIcon60x60@2x.png
+2023-05-07 07:46:03 +0000  copying file ./Assets.car ... 
+2023-05-07 07:46:03 +0000  309535 bytes for ./Assets.car
+copying file ./AppIcon76x76@2x~ipad.png ... 
+2023-05-07 07:46:03 +0000  2497 bytes for ./AppIcon76x76@2x~ipad.png
+copying file ./embedded.mobileprovision ... 
+2023-05-07 07:46:03 +0000  12230 bytes for ./embedded.mobileprovision
+2023-05-07 07:46:03 +0000  copying file ./Photocard Collect ... 
+2023-05-07 07:46:03 +0000  300032 bytes for ./Photocard Collect
+copying file ./Info.plist ... 
+2023-05-07 07:46:03 +0000  1487 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+2023-05-07 07:46:03 +0000  8 bytes for ./PkgInfo
+2023-05-07 07:46:03 +0000  /usr/bin/ditto exited with 0
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionEmbedProfileStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionInfoPlistStep
+2023-05-07 07:46:03 +0000  Skipping setting DTXcodeBuildDistribution because toolsBuildVersionName was nil.
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionItemRemovalStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionSymbolsStep
+2023-05-07 07:46:03 +0000  Processing symbols for Photocard Collect.app
+2023-05-07 07:46:03 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app' '--link-dest' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb'
+2023-05-07 07:46:03 +0000  building file list ... 
+2023-05-07 07:46:03 +0000   0 files...2023-05-07 07:46:03 +0000  10 files to consider
+2023-05-07 07:46:03 +0000  Photocard Collect.app/
+2023-05-07 07:46:03 +0000  Photocard Collect.app/_CodeSignature/
+2023-05-07 07:46:03 +0000  
+2023-05-07 07:46:03 +0000  sent 377 bytes  received 32 bytes  818.00 bytes/sec
+total size is 617.79K  speedup is 1546.75
+2023-05-07 07:46:03 +0000  /usr/bin/rsync exited with 0
+2023-05-07 07:46:03 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/dSYMs/' '--link-dest' '/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/dSYMs/' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb'
+2023-05-07 07:46:03 +0000  building file list ... 
+2023-05-07 07:46:03 +0000   0 files...2023-05-07 07:46:03 +0000  7 files to consider
+2023-05-07 07:46:03 +0000  ./
+2023-05-07 07:46:03 +0000  Photocard Collect.app.dSYM/
+Photocard Collect.app.dSYM/Contents/
+Photocard Collect.app.dSYM/Contents/Resources/
+Photocard Collect.app.dSYM/Contents/Resources/DWARF/
+2023-05-07 07:46:03 +0000  
+sent 254 bytes  received 50 bytes  608.00 bytes/sec
+total size is 1.90M  speedup is 6542.40
+2023-05-07 07:46:03 +0000  /usr/bin/rsync exited with 0
+2023-05-07 07:46:03 +0000  Writing /var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Symbols/F729E262-F84B-3E08-8704-D9D59CBD1512.symbols
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCopyAppleProvidedContentStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionAppThinningStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionArchThinningStep
+2023-05-07 07:46:03 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app/Photocard Collect' '-verify_arch' 'arm64e'
+2023-05-07 07:46:03 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2023-05-07 07:46:03 +0000  Skipping architecture thinning for item "Photocard Collect" because arch "arm64e" wasn't found
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionODRStep
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionStripXattrsStep
+2023-05-07 07:46:03 +0000  Running /usr/bin/xattr '-crs' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app'
+2023-05-07 07:46:03 +0000  /usr/bin/xattr exited with 0
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCodesignStep
+2023-05-07 07:46:03 +0000  Entitlements for <IDEDistributionItem: 0x60000a05f600; bundleID='com.tsproductions.pcollect', path='<DVTFilePath:0x600046dd8700:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000a53efd0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x6000131a1600; name='Apple Development: tinnie.sassano@icloud.com (S9K2J4N2Q9)', hash='806F86C600CF02D5130DB68996E889E7E41D672C', serialNumber='7B686ABE56C08FF019617E5D3160E59D', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-04-20 03:37:35 +0000''>', entitlements='{
+    "application-identifier" = "F5983WM83D.com.tsproductions.pcollect";
+    "com.apple.developer.team-identifier" = F5983WM83D;
+    "get-task-allow" = 1;
+}', teamID='F5983WM83D', identifier='com.tsproductions.pcollect', executablePath='<DVTFilePath:0x600046d1a7d0:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app/Photocard Collect'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "F5983WM83D.com.tsproductions.pcollect";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = F5983WM83D;
+    "get-task-allow" = 0;
+}
+2023-05-07 07:46:03 +0000  Entitlements for <IDEDistributionItem: 0x60000a05f600; bundleID='com.tsproductions.pcollect', path='<DVTFilePath:0x600046dd8700:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000a53efd0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x6000131a1fa0; name='Apple Development: tinnie.sassano@icloud.com (S9K2J4N2Q9)', hash='806F86C600CF02D5130DB68996E889E7E41D672C', serialNumber='7B686ABE56C08FF019617E5D3160E59D', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-04-20 03:37:35 +0000''>', entitlements='{
+    "application-identifier" = "F5983WM83D.com.tsproductions.pcollect";
+    "com.apple.developer.team-identifier" = F5983WM83D;
+    "get-task-allow" = 1;
+}', teamID='F5983WM83D', identifier='com.tsproductions.pcollect', executablePath='<DVTFilePath:0x600046d1a7d0:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app/Photocard Collect'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "F5983WM83D.com.tsproductions.pcollect";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = F5983WM83D;
+    "get-task-allow" = 0;
+}
+2023-05-07 07:46:03 +0000  Writing entitlements for <IDEDistributionItem: 0x60000a05f600; bundleID='com.tsproductions.pcollect', path='<DVTFilePath:0x600046dd8700:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000a53efd0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x6000131b0840; name='Apple Development: tinnie.sassano@icloud.com (S9K2J4N2Q9)', hash='806F86C600CF02D5130DB68996E889E7E41D672C', serialNumber='7B686ABE56C08FF019617E5D3160E59D', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-04-20 03:37:35 +0000''>', entitlements='{
+    "application-identifier" = "F5983WM83D.com.tsproductions.pcollect";
+    "com.apple.developer.team-identifier" = F5983WM83D;
+    "get-task-allow" = 1;
+}', teamID='F5983WM83D', identifier='com.tsproductions.pcollect', executablePath='<DVTFilePath:0x600046d1a7d0:'/Users/chris/Library/Developer/Xcode/Archives/2023-05-07/Photocard Collect 5-7-23, 3.44 AM.xcarchive/Products/Applications/Photocard Collect.app/Photocard Collect'>', hardenedRuntime='0'>'> to: /var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/entitlements~~~jljAyd
+2023-05-07 07:46:03 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '2DAD7B059E11ABFEB27363C72D68B5C77369DB33' '--entitlements' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/entitlements~~~jljAyd' '--generate-entitlement-der' '--preserve-metadata=identifier,flags,runtime' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app'
+2023-05-07 07:46:03 +0000  /var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app: replacing existing signature
+2023-05-07 07:46:03 +0000  /var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app: signed app bundle with Mach-O thin (arm64) [com.tsproductions.pcollect]
+2023-05-07 07:46:03 +0000  /usr/bin/codesign exited with 0
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionZipODRItemStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCreateIPAStep
+2023-05-07 07:46:03 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Symbols' '--link-dest' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root'
+2023-05-07 07:46:03 +0000  building file list ... 
+2023-05-07 07:46:03 +0000   0 files...2023-05-07 07:46:03 +0000  2 files to consider
+2023-05-07 07:46:03 +0000  Symbols/
+2023-05-07 07:46:03 +0000  
+sent 142 bytes  received 26 bytes  336.00 bytes/sec
+total size is 414.93K  speedup is 2529.12
+2023-05-07 07:46:03 +0000  /usr/bin/rsync exited with 0
+2023-05-07 07:46:03 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root' '/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Packages/Photocard Collect.ipa'
+2023-05-07 07:46:03 +0000  >>> Copying /var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root 
+2023-05-07 07:46:03 +0000  copying file ./Payload/Photocard Collect.app/_CodeSignature/CodeResources ... 
+2023-05-07 07:46:03 +0000  2775 bytes for ./Payload/Photocard Collect.app/_CodeSignature/CodeResources
+2023-05-07 07:46:03 +0000  copying file ./Payload/Photocard Collect.app/AppIcon60x60@2x.png ... 
+2023-05-07 07:46:03 +0000  1993 bytes for ./Payload/Photocard Collect.app/AppIcon60x60@2x.png
+copying file ./Payload/Photocard Collect.app/Assets.car ... 
+2023-05-07 07:46:03 +0000  309535 bytes for ./Payload/Photocard Collect.app/Assets.car
+2023-05-07 07:46:03 +0000  copying file ./Payload/Photocard Collect.app/AppIcon76x76@2x~ipad.png ... 
+2497 bytes for ./Payload/Photocard Collect.app/AppIcon76x76@2x~ipad.png
+copying file ./Payload/Photocard Collect.app/embedded.mobileprovision ... 
+2023-05-07 07:46:03 +0000  14293 bytes for ./Payload/Photocard Collect.app/embedded.mobileprovision
+copying file ./Payload/Photocard Collect.app/Photocard Collect ... 
+2023-05-07 07:46:03 +0000  300096 bytes for ./Payload/Photocard Collect.app/Photocard Collect
+2023-05-07 07:46:03 +0000  copying file ./Payload/Photocard Collect.app/Info.plist ... 
+1487 bytes for ./Payload/Photocard Collect.app/Info.plist
+copying file ./Payload/Photocard Collect.app/PkgInfo ... 
+2023-05-07 07:46:03 +0000  8 bytes for ./Payload/Photocard Collect.app/PkgInfo
+copying file ./Symbols/F729E262-F84B-3E08-8704-D9D59CBD1512.symbols ... 
+2023-05-07 07:46:03 +0000  424892 bytes for ./Symbols/F729E262-F84B-3E08-8704-D9D59CBD1512.symbols
+2023-05-07 07:46:03 +0000  /usr/bin/ditto exited with 0
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2023-05-07 07:46:03 +0000  IDEDistributionItem init <DVTFilePath:0x600046ebe220:'/var/folders/yf/93t4hcbs4h3_pr671t_0m3sh0000gn/T/XcodeDistPipeline.~~~Im0eyb/Root/Payload/Photocard Collect.app'>
+2023-05-07 07:46:03 +0000  Processing step: IDEDistributionCreateManifestStep
+2023-05-07 07:46:03 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so

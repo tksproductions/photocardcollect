@@ -1,6 +1,9 @@
 import SwiftUI
 import UIKit
 import PhotosUI
+import CoreImage
+
+
 
 struct FolderView: View {
     @EnvironmentObject private var userData: UserData
@@ -8,6 +11,7 @@ struct FolderView: View {
     @State private var showImagePicker = false
     @State private var selectedImages: [UIImage] = []
     @State private var showRenameAlert = false
+    @State private var showTemplateImagePicker = false
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
     
@@ -34,32 +38,37 @@ struct FolderView: View {
             .padding()
         }
         .navigationTitle(folder.name + " Photocards")
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(
-            leading: Button(action: {
-                // Navigate back to the folder list view when the user taps the back button
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(Color(hex: "FF2E98"))
-            },
-            trailing: Button(action: {
-                // Show the image picker when the user taps the plus button
-                showImagePicker = true
-            }) {
-                Image(systemName: "plus")
-                    .foregroundColor(Color(hex: "FF2E98"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showTemplateImagePicker = true
+                }) {
+                    Image(systemName: "sparkles")
+                        .foregroundColor(Color(hex: "FF2E98"))
+                }
             }
-            .sheet(isPresented: $showImagePicker, onDismiss: {
-                for selectedImage in selectedImages {
-                                    folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
-                                }
-                                selectedImages.removeAll()
-                            }) {
-                                // Present the image picker
-                                ImagePicker(selectedImages: $selectedImages)
-                            }
-        )
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    // Show the image picker when the user taps the plus button
+                    showImagePicker = true
+                })
+                {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color(hex: "FF2E98"))
+                }
+                .sheet(isPresented: $showImagePicker, onDismiss: {
+                     for selectedImage in selectedImages {
+                         folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
+                     }
+                     selectedImages.removeAll()
+                 }) {
+                     // Present the image picker
+                     ImagePicker(selectedImages: $selectedImages)
+                 }
+            }
+
+        }
         .alert(isPresented: $showRenameAlert) {
             Alert(
                 title: Text("Rename Idol"),
@@ -74,8 +83,21 @@ struct FolderView: View {
             TextField("New Name", text: $newName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+    
+        }   .sheet(isPresented: $showTemplateImagePicker, onDismiss: {
+            
+            for selectedImage in selectedImages {
+                let extractedPhotos = extractPhotos(inputImage: selectedImage)
+                for photo in extractedPhotos {
+                    folder.photocards.append(Photocard(image: photo, isCollected: false))
+                }
+            }
+            selectedImages.removeAll()
+        }) {
+            ImagePicker(selectedImages: $selectedImages)
         }
     }
+
     
     @Environment(\.presentationMode) var presentationMode
 
@@ -133,3 +155,59 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
+
+import Vision
+func extractPhotos(inputImage: UIImage, aspectRatio: (CGFloat, CGFloat) = (5.5, 8.5), minSize: CGFloat = 50) -> [UIImage] {
+    guard let cgImage = inputImage.cgImage else { return [] }
+    
+    let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+    
+    var extractedImages: [UIImage] = []
+    
+    let request = VNDetectRectanglesRequest(completionHandler: { (request, error) in
+        if let error = error {
+            print("Error during rectangle detection: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let results = request.results as? [VNRectangleObservation] else { return }
+        print(results.count)
+        
+        for (_, observation) in results.enumerated() {
+            let width = observation.boundingBox.width * CGFloat(cgImage.width)
+            let height = observation.boundingBox.height * CGFloat(cgImage.height)
+            let ratio = width / height
+            
+            if aspectRatio.0 / aspectRatio.1 * 0.7 <= ratio && ratio <= aspectRatio.0 / aspectRatio.1 * 1.3 && width >= minSize && height >= minSize {
+                let x = observation.boundingBox.minX * CGFloat(cgImage.width)
+                let y = (1 - observation.boundingBox.maxY) * CGFloat(cgImage.height)
+                
+                let cropRect = CGRect(x: x, y: y, width: width, height: height)
+                if let croppedImage = cgImage.cropping(to: cropRect) {
+                    let uiImage = UIImage(cgImage: croppedImage)
+                    extractedImages.append(uiImage)
+                } else {
+                    print("no")
+                }
+            }
+        }
+    })
+    
+    request.maximumObservations = 1000
+    request.quadratureTolerance = 75
+    request.minimumConfidence = 0.5
+    request.minimumSize = 0.001
+    request.minimumAspectRatio = 0.4
+    request.maximumAspectRatio = 0.8
+    
+    
+    do {
+        try requestHandler.perform([request])
+    } catch {
+        print("Error performing request: \(error.localizedDescription)")
+    }
+    print(extractedImages.count)
+    return extractedImages
+}
+
+

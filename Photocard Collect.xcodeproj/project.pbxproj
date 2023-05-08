@@ -11,7 +11,6 @@
 		8312643429FEF980001C4B53 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312643329FEF980001C4B53 /* ContentView.swift */; };
 		8312643629FEF982001C4B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8312643529FEF982001C4B53 /* Assets.xcassets */; };
 		8312643929FEF982001C4B53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8312643829FEF982001C4B53 /* Preview Assets.xcassets */; };
-		8312644329FEF983001C4B53 /* Photocard_CollectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644229FEF983001C4B53 /* Photocard_CollectTests.swift */; };
 		8312644D29FEF983001C4B53 /* Photocard_CollectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644C29FEF983001C4B53 /* Photocard_CollectUITests.swift */; };
 		8312644F29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312644E29FEF983001C4B53 /* Photocard_CollectUITestsLaunchTests.swift */; };
 		8312645C29FEF995001C4B53 /* Photocard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312645B29FEF995001C4B53 /* Photocard.swift */; };
@@ -39,6 +38,19 @@
 			remoteInfo = "Photocard Collect";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		839049B32A082A32003CD366 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8312642E29FEF980001C4B53 /* Photocard Collect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photocard Collect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +104,7 @@
 				8312644129FEF983001C4B53 /* Photocard CollectTests */,
 				8312644B29FEF983001C4B53 /* Photocard CollectUITests */,
 				8312642F29FEF980001C4B53 /* Products */,
+				83D8B1962A086241003307AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +161,13 @@
 			path = "Photocard CollectUITests";
 			sourceTree = "<group>";
 		};
+		83D8B1962A086241003307AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,6 +178,7 @@
 				8312642A29FEF980001C4B53 /* Sources */,
 				8312642B29FEF980001C4B53 /* Frameworks */,
 				8312642C29FEF980001C4B53 /* Resources */,
+				839049B32A082A32003CD366 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -216,6 +237,7 @@
 				TargetAttributes = {
 					8312642D29FEF980001C4B53 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 					8312643D29FEF982001C4B53 = {
 						CreatedOnToolsVersion = 14.3;
@@ -294,7 +316,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8312644329FEF983001C4B53 /* Photocard_CollectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +384,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "/Users/chris/Downloads/pccollect/Photocard Collect/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -373,12 +395,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -421,17 +445,20 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "/Users/chris/Downloads/pccollect/Photocard Collect/PrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -442,12 +469,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Photocard Collect/Preview Content\"";
 				DEVELOPMENT_TEAM = F5983WM83D;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/Photocard\\ Collect",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PCollect;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -458,9 +493,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-Collect";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tksproductions.pcollect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SHARED_PRECOMPS_DIR = "/Users/chris/Downloads/pccollect/Photocard Collect/PrefixHeader.pch";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -471,12 +510,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Photocard Collect/Preview Content\"";
 				DEVELOPMENT_TEAM = F5983WM83D;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/Photocard\\ Collect",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PCollect;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,9 +534,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tsproductions.Photocard-Collect";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tksproductions.pcollect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SHARED_PRECOMPS_DIR = "/Users/chris/Downloads/pccollect/Photocard Collect/PrefixHeader.pch";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
