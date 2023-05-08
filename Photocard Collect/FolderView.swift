@@ -10,6 +10,7 @@ struct FolderView: View {
     @Binding private var folder: Folder
     @State private var showImagePicker = false
     @State private var selectedImages: [UIImage] = []
+    @State private var selectedImage: UIImage?
     @State private var showRenameAlert = false
     @State private var showTemplateImagePicker = false
     @State private var newName = ""
@@ -79,23 +80,17 @@ struct FolderView: View {
                 secondaryButton: .cancel()
             )
         }
-        .sheet(isPresented: $showRenameAlert) {
-            TextField("New Name", text: $newName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-    
-        }   .sheet(isPresented: $showTemplateImagePicker, onDismiss: {
-            
-            for selectedImage in selectedImages {
+        .sheet(isPresented: $showTemplateImagePicker, onDismiss: {
+            if let selectedImage = selectedImage {
                 let extractedPhotos = extractPhotos(inputImage: selectedImage)
                 for photo in extractedPhotos {
                     folder.photocards.append(Photocard(image: photo, isCollected: false))
                 }
             }
-            selectedImages.removeAll()
         }) {
-            ImagePicker(selectedImages: $selectedImages)
+            ImagePicker2(selectedImage: $selectedImage)
         }
+
     }
 
     
@@ -156,9 +151,51 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
+
 import Vision
-func extractPhotos(inputImage: UIImage, aspectRatio: (CGFloat, CGFloat) = (5.5, 8.5), minSize: CGFloat = 50) -> [UIImage] {
-    guard let cgImage = inputImage.cgImage else { return [] }
+import CoreImage
+import UIKit
+
+func preprocessImage(inputImage: UIImage, contrast: CGFloat, brightness: CGFloat, threshold: CGFloat) -> UIImage? {
+    guard let ciImage = CIImage(image: inputImage) else { return nil }
+
+    // Adjust contrast and brightness
+    let colorControlsFilter = CIFilter(name: "CIColorControls")!
+    colorControlsFilter.setValue(ciImage, forKey: kCIInputImageKey)
+    colorControlsFilter.setValue(contrast, forKey: kCIInputContrastKey)
+    colorControlsFilter.setValue(brightness, forKey: kCIInputBrightnessKey)
+    
+    guard let adjustedImage = colorControlsFilter.outputImage else { return nil }
+
+    // Make the background pure white and enhance the edges
+    let whiteColorFilter = CIFilter(name: "CIColorMatrix")!
+    whiteColorFilter.setValue(adjustedImage, forKey: kCIInputImageKey)
+    whiteColorFilter.setValue(CIVector(x: 1, y: 1, z: 1, w: 0), forKey: "inputBiasVector")
+    
+    guard let whiteColorImage = whiteColorFilter.outputImage else { return nil }
+
+    // Apply threshold
+    let thresholdFilter = CIFilter(name: "CIColorMatrix")!
+    thresholdFilter.setDefaults()
+    thresholdFilter.setValue(whiteColorImage, forKey: kCIInputImageKey)
+    let r = 1 - threshold
+    let g = 1 - threshold
+    let b = 1 - threshold
+    thresholdFilter.setValue(CIVector(x: r, y: 0, z: 0, w: 0), forKey: "inputRVector")
+    thresholdFilter.setValue(CIVector(x: 0, y: g, z: 0, w: 0), forKey: "inputGVector")
+    thresholdFilter.setValue(CIVector(x: 0, y: 0, z: b, w: 0), forKey: "inputBVector")
+    thresholdFilter.setValue(CIVector(x: 0, y: 0, z: 0, w: 1), forKey: "inputAVector")
+
+    let context = CIContext(options: nil)
+    guard let outputImage = thresholdFilter.outputImage, let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
+    return UIImage(cgImage: cgImage)
+}
+
+func extractPhotos(inputImage: UIImage, aspectRatio: (CGFloat, CGFloat) = (5.5, 8.5)) -> [UIImage] {
+    guard let processedImage = preprocessImage(inputImage: inputImage, contrast: 5.0, brightness: 0.3, threshold: 0.9),
+          let cgImage = processedImage.cgImage,
+          //let originalCGImage = inputImage.cgImage else { return [] }
+          let originalCGImage = processedImage.cgImage else { return [] }
     
     let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
     
@@ -172,34 +209,32 @@ func extractPhotos(inputImage: UIImage, aspectRatio: (CGFloat, CGFloat) = (5.5, 
         
         guard let results = request.results as? [VNRectangleObservation] else { return }
         print(results.count)
-        
         for (_, observation) in results.enumerated() {
             let width = observation.boundingBox.width * CGFloat(cgImage.width)
             let height = observation.boundingBox.height * CGFloat(cgImage.height)
             let ratio = width / height
             
-            if aspectRatio.0 / aspectRatio.1 * 0.7 <= ratio && ratio <= aspectRatio.0 / aspectRatio.1 * 1.3 && width >= minSize && height >= minSize {
+            let aspectRatioRange = (aspectRatio.0 / aspectRatio.1) * 0.8...(aspectRatio.0 / aspectRatio.1) * 1.2
+            
+            if aspectRatioRange.contains(ratio) {
                 let x = observation.boundingBox.minX * CGFloat(cgImage.width)
                 let y = (1 - observation.boundingBox.maxY) * CGFloat(cgImage.height)
                 
                 let cropRect = CGRect(x: x, y: y, width: width, height: height)
-                if let croppedImage = cgImage.cropping(to: cropRect) {
+                if let croppedImage = originalCGImage.cropping(to: cropRect) {
                     let uiImage = UIImage(cgImage: croppedImage)
                     extractedImages.append(uiImage)
-                } else {
-                    print("no")
                 }
             }
         }
     })
     
     request.maximumObservations = 1000
-    request.quadratureTolerance = 75
-    request.minimumConfidence = 0.5
-    request.minimumSize = 0.001
-    request.minimumAspectRatio = 0.4
-    request.maximumAspectRatio = 0.8
-    
+    request.quadratureTolerance = 30
+    request.minimumConfidence = 0.6
+    request.minimumSize = 0.05
+    request.minimumAspectRatio = Float((aspectRatio.0 / aspectRatio.1) * 0.8)
+    request.maximumAspectRatio = Float((aspectRatio.0 / aspectRatio.1) * 1.2)
     
     do {
         try requestHandler.perform([request])
@@ -209,5 +244,3 @@ func extractPhotos(inputImage: UIImage, aspectRatio: (CGFloat, CGFloat) = (5.5, 
     print(extractedImages.count)
     return extractedImages
 }
-
-
