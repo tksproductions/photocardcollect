@@ -39,19 +39,36 @@ cv::Mat UIImageToCVMat(UIImage *image) {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
     CGFloat cols = image.size.width;
     CGFloat rows = image.size.height;
+    NSUInteger bytesPerRow = CGImageGetBytesPerRow(image.CGImage);
 
-    cv::Mat cvMat(rows, cols, CV_8UC4);
-    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data, cols, rows, 8, cvMat.step[0], colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrderDefault);
+    int type = static_cast<int>(CGImageGetBitsPerPixel(image.CGImage)) / static_cast<int>(CGImageGetBitsPerComponent(image.CGImage));
+    cv::Mat cvMat;
+    if (type == 1) {
+        cvMat.create(rows, cols, CV_8UC1);
+    } else if (type == 3) {
+        cvMat.create(rows, cols, CV_8UC3);
+    } else if (type == 4) {
+        cvMat.create(rows, cols, CV_8UC4);
+    } else {
+        throw std::runtime_error("Unsupported image type");
+    }
+
+    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data, cols, rows, 8, bytesPerRow, colorSpace, static_cast<uint32_t>(kCGImageAlphaNoneSkipLast) | static_cast<uint32_t>(kCGBitmapByteOrderDefault));
     CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
     CGContextRelease(contextRef);
-    cv::cvtColor(cvMat, cvMat, cv::COLOR_RGBA2BGR);
+    if (type == 4) {
+        cv::cvtColor(cvMat, cvMat, cv::COLOR_RGBA2BGRA);
+    } else {
+        cv::cvtColor(cvMat, cvMat, cv::COLOR_RGBA2BGR);
+    }
+
 
     return cvMat;
 }
 
 UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
-    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
     CGColorSpaceRef colorSpace;
+    size_t bytesPerRow;
 
     if (cvMat.elemSize() == 1) {
         colorSpace = CGColorSpaceCreateDeviceGray();
@@ -60,15 +77,20 @@ UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
         cv::cvtColor(cvMat, cvMat, cv::COLOR_BGR2RGBA);
     }
 
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-    CGImageRef imageRef = CGImageCreate(cvMat.cols, cvMat.rows, 8, 8 * cvMat.elemSize(), cvMat.step[0], colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrderDefault, provider, NULL, false, kCGRenderingIntentDefault);
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    bytesPerRow = cvMat.cols * cvMat.elemSize();
+
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, cvMat.data, cvMat.elemSize() * cvMat.total(), NULL);
+    CGImageRef imageRef = CGImageCreate(cvMat.cols, cvMat.rows, 8, 8 * cvMat.elemSize(), bytesPerRow, colorSpace, static_cast<uint32_t>(kCGImageAlphaNoneSkipLast) | static_cast<uint32_t>(kCGBitmapByteOrderDefault), provider, NULL, false, kCGRenderingIntentDefault);
+    CGImageRef retainedImageRef = CGImageRetain(imageRef);
+    UIImage *image = [UIImage imageWithCGImage:retainedImageRef];
+
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
 
     return image;
 }
+
 
 std::vector<UIImage *> extractPhotosCpp(UIImage *inputImage) {
     cv::Mat inputMat = UIImageToCVMat(inputImage);
