@@ -88,7 +88,7 @@ UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
         throw std::runtime_error("Unsupported image type");
     }
 
-    cv::flip(tempMat, tempMat, 0); // Add this line to flip the image vertically
+    cv::flip(tempMat, tempMat, 0);
 
     bytesPerRow = tempMat.cols * tempMat.elemSize();
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, tempMat.data, tempMat.elemSize() * tempMat.total(), NULL);
