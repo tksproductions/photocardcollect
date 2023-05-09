@@ -67,22 +67,37 @@ cv::Mat UIImageToCVMat(UIImage *image) {
 }
 
 UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
+    cv::Mat tempMat;
     CGColorSpaceRef colorSpace;
     size_t bytesPerRow;
+    CGBitmapInfo bitmapInfo;
 
     if (cvMat.elemSize() == 1) {
         colorSpace = CGColorSpaceCreateDeviceGray();
-    } else {
+        tempMat = cvMat;
+        bitmapInfo = kCGImageAlphaNone;
+    } else if (cvMat.channels() == 3) {
         colorSpace = CGColorSpaceCreateDeviceRGB();
-        cv::cvtColor(cvMat, cvMat, cv::COLOR_BGR2RGBA);
+        cv::cvtColor(cvMat, tempMat, cv::COLOR_BGR2RGB);
+        bitmapInfo = kCGImageAlphaNone;
+    } else if (cvMat.channels() == 4) {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        cv::cvtColor(cvMat, tempMat, cv::COLOR_BGRA2RGBA);
+        bitmapInfo = kCGImageAlphaPremultipliedLast;
+    } else {
+        throw std::runtime_error("Unsupported image type");
     }
 
-    bytesPerRow = cvMat.cols * cvMat.elemSize();
+    cv::flip(tempMat, tempMat, 0); // Add this line to flip the image vertically
 
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, cvMat.data, cvMat.elemSize() * cvMat.total(), NULL);
-    CGImageRef imageRef = CGImageCreate(cvMat.cols, cvMat.rows, 8, 8 * cvMat.elemSize(), bytesPerRow, colorSpace, static_cast<uint32_t>(kCGImageAlphaNoneSkipLast) | static_cast<uint32_t>(kCGBitmapByteOrderDefault), provider, NULL, false, kCGRenderingIntentDefault);
-    CGImageRef retainedImageRef = CGImageRetain(imageRef);
-    UIImage *image = [UIImage imageWithCGImage:retainedImageRef];
+    bytesPerRow = tempMat.cols * tempMat.elemSize();
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, tempMat.data, tempMat.elemSize() * tempMat.total(), NULL);
+    CGImageRef imageRef = CGImageCreate(tempMat.cols, tempMat.rows, 8, 8 * tempMat.elemSize(), bytesPerRow, colorSpace, bitmapInfo | kCGBitmapByteOrderDefault, provider, NULL, false, kCGRenderingIntentDefault);
+
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(tempMat.cols, tempMat.rows)];
+    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
+        CGContextDrawImage(context.CGContext, CGRectMake(0, 0, tempMat.cols, tempMat.rows), imageRef);
+    }];
 
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
@@ -92,14 +107,18 @@ UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
 }
 
 
+
 std::vector<UIImage *> extractPhotosCpp(UIImage *inputImage) {
     cv::Mat inputMat = UIImageToCVMat(inputImage);
     std::vector<cv::Mat> extractedMats = extract_photos(inputMat);
     std::vector<UIImage *> extractedUIImages;
 
     for (const auto &mat : extractedMats) {
-        UIImage *uiImage = CVMatToUIImage(mat);
-        extractedUIImages.push_back(uiImage);
+        @autoreleasepool {
+            UIImage *uiImage = CVMatToUIImage(mat);
+            UIImage *copiedImage = [UIImage imageWithCGImage:uiImage.CGImage scale:1.0 orientation:uiImage.imageOrientation];
+            extractedUIImages.push_back(copiedImage);
+        }
     }
 
     return extractedUIImages;
