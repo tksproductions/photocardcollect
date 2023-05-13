@@ -19,13 +19,16 @@ struct FolderView: View {
     @State private var isSelecting = false
     @State private var selectedPhotocards = Set<UUID>()
     @State private var showISOView = false
+    
     var wishlistedPhotocards: [Photocard] {
         folder.photocards.filter { $0.isWishlisted }
     }
 
     
     @available(iOS 15.0, *)
+    
     var body: some View {
+        
         var gridLayout: [GridItem] {
             switch sizeClass {
             case .compact:
@@ -49,10 +52,11 @@ struct FolderView: View {
         ScrollView {
             if folder.photocards.isEmpty {
                 VStack(spacing: 20) {
+                    
                     Text("No photocards added")
                         .font(.title2)
                         .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-                        .padding(.top, 250)
+                        .padding(.top, UIScreen.main.bounds.width/2)
                     VStack {
                         Button(action: {
                             showImagePicker = true
@@ -77,52 +81,46 @@ struct FolderView: View {
                             }
                         }
                     }
+                    
                 }
                 .padding(.top, 50)
             }
-else {
-    LazyVGrid(columns: gridLayout, spacing: 20) {
-        ForEach(sortedPhotocards, id: \.self) { index in
-            PhotocardView(
-                photocard: $folder.photocards[index],
-                isSelected: .init(get: {
-                    selectedPhotocards.contains(folder.photocards[index].id)
-                }, set: { newValue in
-                    if newValue {
-                        selectedPhotocards.insert(folder.photocards[index].id)
-                    } else {
-                        selectedPhotocards.remove(folder.photocards[index].id)
-                    }
-                }),
-                isSelecting: $isSelecting
-            )
-
-        }
-
-        .onMove(perform: move)
-    }
-    .padding(20)
-            }
-        }
-        .navigationTitle(isSelecting ? "" : folder.name + " Photocards")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if isSelecting {
-                    Button(action: {
-                        withAnimation {
-                            for id in selectedPhotocards {
-                                folder.photocards.removeAll(where: { $0.id == id })
+            else {
+                LazyVGrid(columns: gridLayout, spacing: 20) {
+                    ForEach(sortedPhotocards, id: \.self) { index in
+                        PhotocardView(
+                            photocard: $folder.photocards[index],
+                            isSelected: .init(get: {
+                                
+                                selectedPhotocards.contains(folder.photocards[index].id)
+                            }, set: { newValue in
+                                if newValue {
+                                    selectedPhotocards.insert(folder.photocards[index].id)
+                                } else {
+                                    selectedPhotocards.remove(folder.photocards[index].id)
+                                }
+                            }),
+                            isSelecting: $isSelecting,
+                            deleteAction: {
+                                folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
+                                userData.saveFolders()
                             }
-                            userData.saveFolders()
-                            selectedPhotocards.removeAll()
-                            isSelecting.toggle()
-                        }
-                    }) {
-                        Text("Delete")
+                        )
+                        
                     }
+                    
+                    .onMove(perform: move)
                 }
+                .padding(20)
+                
             }
+            
+        }
+        
+        .navigationTitle(isSelecting ? "" : folder.name)
+        .navigationBarTitleDisplayMode(.inline)
+        
+        .toolbar {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isSelecting {
@@ -141,7 +139,7 @@ else {
                             isSelecting.toggle()
                         }
                     }) {
-                        Text("Collect")
+                        Image(systemName: "plus.circle")
                     }
                 }
             }
@@ -163,18 +161,34 @@ else {
                             isSelecting.toggle() // Add this line to toggle isSelecting state
                         }
                     }) {
-                        Text("Wishlist")
+                        Image(systemName: "star")
                     }
                 }
             }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if isSelecting {
+                            Button(action: {
+                                withAnimation {
+                                    for id in selectedPhotocards {
+                                        folder.photocards.removeAll(where: { $0.id == id })
+                                    }
+                                    userData.saveFolders()
+                                    selectedPhotocards.removeAll()
+                                    isSelecting.toggle()
+                                }
+                            }) {
+                                Image(systemName: "trash")
+                            }
+                        }
+                    }
 
+        
             ToolbarItem(placement: .navigationBarLeading) {
                 if !isSelecting {
                     Button(action: {
                         showISOView = true
                     }) {
                         Image(systemName: "magnifyingglass.circle")
-                            .foregroundColor(Color(hex: "FFD700"))
                     }
                     .sheet(isPresented: $showISOView) {
                         ISOView(photocards: wishlistedPhotocards)
@@ -237,7 +251,7 @@ else {
                 }
             }
         }
-
+        
         .alert(isPresented: $showRenameAlert) {
             Alert(
                 title: Text("Rename Idol"),
@@ -266,6 +280,7 @@ else {
         }) {
             ImagePicker2(selectedImage: $selectedImage)
         }
+        
     }
 
     

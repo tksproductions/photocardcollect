@@ -18,7 +18,7 @@ struct FolderList: View {
                         Text("No idols added")
                             .font(.title2)
                             .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-                            .padding(.top, 320)
+                            .padding(.top, UIScreen.main.bounds.width/2)
 
                         Button(action: {
                             showAddFolderSheet = true
@@ -46,7 +46,6 @@ struct FolderList: View {
                                         .frame(width: 175, height: 175)
                                         .border(colorScheme == .light ? Color.black : Color.white, width: 2)
                                         .clipped()
-                                        .rotationEffect(Angle(degrees: 90))
                                 } else {
                                     Image(systemName: "folder")
                                         .frame(width: 175, height: 175)
@@ -88,16 +87,43 @@ struct FolderList: View {
         
         .navigationTitle("Idols")
         .popover(isPresented: $showInstructionsPopover, arrowEdge: .top) {
-            VStack {
+            VStack(spacing: 16) {
                 Text("Info")
-                    .font(.headline)
-                    .padding(.top)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.top, 150)
+
                 Divider()
-                Text("- Created by @beomgyulix\n- Tap on a photocard to toggle its collected state\n- Tap and hold on an idol/photocard to edit/delete\n- Tap the sparkles to convert a template into photocards (WIP feature)")
-                    .padding()
+
+                VStack(spacing: 12) {
+                    InfoRow(symbolName: "circle", description: "Created by @beomgyulix")
+                    InfoRow(symbolName: "circle", description: "Tap a photocard to enlarge")
+                    InfoRow(symbolName: "circle", description: "Tap and hold a photocard to modify")
+                }
+                .padding()
+
+                Text("Icons")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .padding(.top, 20)
+                
+                Divider()
+                
+                VStack(spacing: 12) {
+                    InfoRow(symbolName: "sparkles", description: "Add photocards from a photocard template")
+                    InfoRow(symbolName: "plus", description: "Add a photocard from an image of one")
+                    InfoRow(symbolName: "magnifyingglass.circle", description: "Create a Wishlist/ISO image")
+                }
+                .padding()
+
+                Spacer()
             }
-            .frame(width: 400, height: 400)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .background(.black)
+            .cornerRadius(16)
+            .padding()
         }
+
 
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -254,6 +280,35 @@ extension View {
         HStack {
             Spacer()
             self
+            Spacer()
+        }
+    }
+}
+
+class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let backBarButtonItem = UIBarButtonItem(title: "You back button title here", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
+    }
+}
+
+struct InfoRow: View {
+    let symbolName: String
+    let description: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            Image(systemName: symbolName)
+                .font(.system(size: 20))
+                .foregroundColor(Color(hex: "FF2E98"))
+
+            Text(description)
+                .font(.body)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+
             Spacer()
         }
     }

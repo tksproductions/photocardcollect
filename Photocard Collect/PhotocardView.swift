@@ -7,6 +7,7 @@ struct PhotocardView: View {
     @Binding var isSelected: Bool
     @Binding var isSelecting: Bool
     var screenWidth = UIScreen.main.bounds.width
+    var deleteAction: () -> Void
 
     var body: some View {
         ZStack {
@@ -23,6 +24,7 @@ struct PhotocardView: View {
         }
         .frame(width: 165, height: 255)
         .opacity(isSelected ? 0.5 : 1)
+        .contentShape(RoundedRectangle(cornerRadius: 10)) // Apply the content shape
         .onTapGesture {
             if isSelecting {
                 isSelected.toggle()
@@ -49,14 +51,20 @@ struct PhotocardView: View {
                 photocard.isCollected.toggle()
                 photocard.isWishlisted = false
             }) {
-                Label(photocard.isCollected ? "Uncollect" : "Collect", systemImage: photocard.isCollected ? "minus.circle" : "plus.circle")
+                Label(photocard.isCollected ? "Remove from collected" : "Add to collected", systemImage: photocard.isCollected ? "minus.circle" : "plus.circle")
             }
 
             Button(action: {
                 photocard.isWishlisted.toggle()
+                photocard.isCollected = false
             }) {
                 Label(photocard.isWishlisted ? "Remove from Wishlist" : "Add to Wishlist", systemImage: photocard.isWishlisted ? "star.slash" : "star")
             }
+        Button(action: {
+            deleteAction()
+        }) {
+            Label("Delete Photocard", systemImage: "trash")
         }
     }
+}
 }
