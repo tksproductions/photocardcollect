@@ -28,6 +28,7 @@
 		83EAD08A2A09B89700133660 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD0892A09B89700133660 /* CoreFoundation.framework */; };
 		83EAD08D2A09B8FD00133660 /* Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83EAD08C2A09B8FD00133660 /* Wrapper.mm */; };
 		83EAD0912A09BF2200133660 /* Wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EAD0902A09BF2200133660 /* Wrapper.cpp */; };
+		83F1A76E2A0F1A1D00F5B4C6 /* ISOView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1A76D2A0F1A1C00F5B4C6 /* ISOView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		83EAD08E2A09B92700133660 /* Wrapper.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = Wrapper.h; sourceTree = "<group>"; };
 		83EAD08F2A09BA6D00133660 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		83EAD0902A09BF2200133660 /* Wrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Wrapper.cpp; sourceTree = "<group>"; };
+		83F1A76D2A0F1A1C00F5B4C6 /* ISOView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISOView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				8312646329FEFBCA001C4B53 /* FolderView.swift */,
 				8390499D2A0742B9003CD366 /* UserData.swift */,
 				839049A32A076284003CD366 /* FolderOrderingView.swift */,
+				83F1A76D2A0F1A1C00F5B4C6 /* ISOView.swift */,
 			);
 			path = "Photocard Collect";
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				8312646029FEF9D4001C4B53 /* FolderList.swift in Sources */,
 				8312645E29FEF9C5001C4B53 /* PhotocardView.swift in Sources */,
 				8312645C29FEF995001C4B53 /* Photocard.swift in Sources */,
+				83F1A76E2A0F1A1D00F5B4C6 /* ISOView.swift in Sources */,
 				8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */,
 				83EAD08D2A09B8FD00133660 /* Wrapper.mm in Sources */,
 				83EAD0912A09BF2200133660 /* Wrapper.cpp in Sources */,

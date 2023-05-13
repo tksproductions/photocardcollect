@@ -13,52 +13,78 @@ struct FolderList: View {
     @State private var showFolderOrderingView = false
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
-                ForEach(userData.folders.indices, id: \.self) { index in
-                    
-                    NavigationLink(destination: FolderView(folder: $userData.folders[index]).environmentObject(userData)) {
+            if userData.folders.isEmpty {
+                VStack (spacing:20) {
+                        Text("No idols added")
+                            .font(.title2)
+                            .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                            .padding(.top, 320)
 
-                        VStack {
-                            if let icon = userData.folders[index].icon {
-                                Image(uiImage: icon)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 175, height: 175)
-                                    .border(colorScheme == .light ? Color.black : Color.white, width: 2)
-                                    .clipped()
-                            } else {
-                                Image(systemName: "folder")
-                                    .frame(width: 175, height: 175)
-                                    .contentShape(Rectangle())
-                                    .border(colorScheme == .light ? Color.black : Color.white, width: 2)
-                            }
-                            Text(userData.folders[index].name)
-                                .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-                        }
-                        .contextMenu {
-                            Button(action: {
-                                // Set the selected folder to the current folder
-                                selectedFolder = userData.folders[index]
-                                // Show the sheet to edit the folder
-                                showAddFolderSheet = true
-                            }) {
-                                Text("Edit")
-                                Image(systemName: "pencil")
-                            }
-                            Button(action: {
-                                // Remove the folder from the list
-                                userData.folders.removeAll(where: { $0.id == userData.folders[index].id })
-                                userData.saveFolders()
-                            }) {
-                                Text("Delete")
-                                Image(systemName: "trash")
+                        Button(action: {
+                            showAddFolderSheet = true
+                        }) {
+                            HStack {
+                                Image(systemName: "plus")
+                                    .foregroundColor(Color(hex: "FF2E98"))
+                                Text("Add Idol")
+                                    .foregroundColor(Color(hex: "FF2E98"))
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
+                    ForEach(userData.folders.indices, id: \.self) { index in
+                        
+                        NavigationLink(destination: FolderView(folder: $userData.folders[index]).environmentObject(userData)) {
+                            
+                            VStack {
+                                if let icon = userData.folders[index].icon {
+                                    Image(uiImage: icon)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 175, height: 175)
+                                        .border(colorScheme == .light ? Color.black : Color.white, width: 2)
+                                        .clipped()
+                                        .rotationEffect(Angle(degrees: 90))
+                                } else {
+                                    Image(systemName: "folder")
+                                        .frame(width: 175, height: 175)
+                                        .contentShape(Rectangle())
+                                        .border(colorScheme == .light ? Color.black : Color.white, width: 2)
+                                }
+                                Text(userData.folders[index].name)
+                                    .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                            }
+                            .contextMenu {
+                                Button(action: {
+                                    // Set the selected folder to the current folder
+                                    selectedFolder = userData.folders[index]
+                                    // Show the sheet to edit the folder
+                                    showAddFolderSheet = true
+                                }) {
+                                    Text("Edit")
+                                    Image(systemName: "pencil")
+                                }
+                                Button(action: {
+                                    // Remove the folder from the list
+                                    userData.folders.removeAll(where: { $0.id == userData.folders[index].id })
+                                    userData.saveFolders()
+                                }) {
+                                    Text("Delete")
+                                    Image(systemName: "trash")
+                                }
+                            }
+                        }
+                    }
+
                 }
-                .padding(.top, 20) // add a padding to move the idols down
             }
         }
+        .padding(.top, 20)
+        .frame(maxWidth: 800) // Limit the width
+        .padding(.horizontal, 10) // Add a bit of padding
+        .centered() // Create this extension
         
         .navigationTitle("Idols")
         .popover(isPresented: $showInstructionsPopover, arrowEdge: .top) {
@@ -219,6 +245,16 @@ struct ImagePicker2: UIViewControllerRepresentable {
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+extension View {
+    func centered() -> some View {
+        HStack {
+            Spacer()
+            self
+            Spacer()
         }
     }
 }

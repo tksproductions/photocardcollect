@@ -1,10 +1,8 @@
-import SwiftUI
-import UIKit
-
 struct Photocard: Identifiable, Codable {
     var id: UUID
     var imageName: String
     var isCollected: Bool
+    var isWishlisted: Bool  // New attribute for wishlist status
     
     var image: UIImage? {
         guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
@@ -17,9 +15,10 @@ struct Photocard: Identifiable, Codable {
 }
 
 extension Photocard {
-    init(id: UUID = UUID(), image: UIImage, isCollected: Bool) {
+    init(id: UUID = UUID(), image: UIImage, isCollected: Bool, isWishlisted: Bool = false) {
         self.id = id
         self.isCollected = isCollected
+        self.isWishlisted = isWishlisted  // Initialize the isWishlisted attribute
         
         // Save the image file to the document directory with a unique filename
         let imageName = UUID().uuidString + ".png"
