@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, int min_size = 50) {
+std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, int min_size = 100) {
     cv::Mat gray;
     cv::cvtColor(input_image, gray, cv::COLOR_BGR2GRAY);
 

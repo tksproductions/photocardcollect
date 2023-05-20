@@ -98,7 +98,7 @@ struct FolderList: View {
                 VStack(spacing: 12) {
                     InfoRow(symbolName: "circle", description: "Created by @beomgyulix")
                     InfoRow(symbolName: "circle", description: "Tap a photocard to enlarge")
-                    InfoRow(symbolName: "circle", description: "Tap and hold a photocard to modify")
+                    InfoRow(symbolName: "circle", description: "Tap and hold a photocard/idol to modify")
                 }
                 .padding()
 
@@ -119,7 +119,7 @@ struct FolderList: View {
                 Spacer()
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .background(.black)
+            .background(colorScheme == .light ? Color.white : Color.black)
             .cornerRadius(16)
             .padding()
         }
@@ -308,7 +308,7 @@ struct InfoRow: View {
                 .font(.body)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
-
+                    
             Spacer()
         }
     }
