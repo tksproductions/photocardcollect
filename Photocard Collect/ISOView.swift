@@ -1,7 +1,7 @@
 import SwiftUI
 struct ISOView: View {
     var photocards: [Photocard]
-    var screenWidth = UIScreen.main.bounds.width
+    var screenWidth = min(UIScreen.main.bounds.width, 700)
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {

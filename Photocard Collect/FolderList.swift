@@ -87,43 +87,71 @@ struct FolderList: View {
         
         .navigationTitle("Idols")
         .popover(isPresented: $showInstructionsPopover, arrowEdge: .top) {
-            VStack(spacing: 16) {
-                Text("Info")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top, 150)
-
-                Divider()
-
-                VStack(spacing: 12) {
-                    InfoRow(symbolName: "circle", description: "Created by @beomgyulix")
-                    InfoRow(symbolName: "circle", description: "Tap a photocard to enlarge")
-                    InfoRow(symbolName: "circle", description: "Tap and hold a photocard/idol to modify")
+            ScrollView{
+                VStack(spacing: 16) {
+                    Text("Info")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.top, 50)
+                    
+                    Divider()
+                    
+                    VStack(spacing: 12) {
+                        InfoRow(symbolName: "circle", description: "Created by @beomgyulix")
+                        InfoRow(symbolName: "circle", description: "Tap a photocard to enlarge")
+                        InfoRow(symbolName: "circle", description: "Tap and hold a photocard/idol to modify")
+                    }
+                    .padding()
+                    
+                    Text("Icons")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.top, 20)
+                    
+                    Divider()
+                    
+                    VStack(spacing: 12) {
+                        InfoRow(symbolName: "sparkles", description: "Add photocards from a photocard template")
+                        InfoRow(symbolName: "plus", description: "Add a photocard from an image of one")
+                        InfoRow(symbolName: "magnifyingglass.circle", description: "Create a Wishlist/ISO image")
+                    }
+                    .padding()
+                    
+                    Text("Links")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.top, 20)
+                    
+                    Divider()
+                    
+                    VStack(spacing: 12) {
+                        Button(action: {
+                            if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSea5-L7K-nmPBCGCao7IVgsG9VPmYV2CQHBG5FOtlVD1jOAIQ/viewform") {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            InfoRow(symbolName: "exclamationmark.bubble", description: "Tell us how we can improve the app!")
+                        }
+                        
+                        Button(action: {
+                            if let url = URL(string: "https://www.buymeacoffee.com/pcollect") {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            InfoRow(symbolName: "heart", description: "Help us fund our App Store license!")
+                        }
+                    }
+                    
+                    Spacer()
                 }
                 .padding()
-
-                Text("Icons")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.top, 20)
                 
-                Divider()
-                
-                VStack(spacing: 12) {
-                    InfoRow(symbolName: "sparkles", description: "Add photocards from a photocard template")
-                    InfoRow(symbolName: "plus", description: "Add a photocard from an image of one")
-                    InfoRow(symbolName: "magnifyingglass.circle", description: "Create a Wishlist/ISO image")
-                }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .background(colorScheme == .light ? Color.white : Color.black)
+                .cornerRadius(16)
                 .padding()
-
-                Spacer()
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .background(colorScheme == .light ? Color.white : Color.black)
-            .cornerRadius(16)
-            .padding()
         }
-
 
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

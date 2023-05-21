@@ -45,8 +45,6 @@ struct PhotocardView: View {
                 Image(uiImage: photocard.image ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .colorMultiply(photocard.isCollected ? Color.black.opacity(0.5) : .white) // darken the photocard image when collected
-                    .overlay(isSelected ? Color(hex: "FF2E98").opacity(0.5) : Color.clear) // pink tint for selected photocard
                     .frame(width: screenWidth - 30, height: (screenWidth-30) * 255/165)
                     .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
             }

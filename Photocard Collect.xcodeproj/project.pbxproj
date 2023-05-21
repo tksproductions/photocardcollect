@@ -20,6 +20,7 @@
 		8312646429FEFBCA001C4B53 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8312646329FEFBCA001C4B53 /* FolderView.swift */; };
 		8390499E2A0742B9003CD366 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390499D2A0742B9003CD366 /* UserData.swift */; };
 		839049A42A076284003CD366 /* FolderOrderingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839049A32A076284003CD366 /* FolderOrderingView.swift */; };
+		83A14A722A19486F006AF7C4 /* AppLifecycleListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */; };
 		83EAD0802A09B83100133660 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD07F2A09B83100133660 /* opencv2.framework */; };
 		83EAD0822A09B85C00133660 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD0812A09B85C00133660 /* Accelerate.framework */; };
 		83EAD0842A09B86700133660 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD0832A09B86700133660 /* CoreMedia.framework */; };
@@ -79,6 +80,7 @@
 		8312646329FEFBCA001C4B53 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		8390499D2A0742B9003CD366 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		839049A32A076284003CD366 /* FolderOrderingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderOrderingView.swift; sourceTree = "<group>"; };
+		83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLifecycleListener.swift; sourceTree = "<group>"; };
 		83EAD07F2A09B83100133660 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		83EAD0812A09B85C00133660 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		83EAD0832A09B86700133660 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -165,6 +167,7 @@
 				8390499D2A0742B9003CD366 /* UserData.swift */,
 				839049A32A076284003CD366 /* FolderOrderingView.swift */,
 				83F1A76D2A0F1A1C00F5B4C6 /* ISOView.swift */,
+				83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */,
 			);
 			path = "Photocard Collect";
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A14A722A19486F006AF7C4 /* AppLifecycleListener.swift in Sources */,
 				8312643429FEF980001C4B53 /* ContentView.swift in Sources */,
 				8312646429FEFBCA001C4B53 /* FolderView.swift in Sources */,
 				8390499E2A0742B9003CD366 /* UserData.swift in Sources */,
@@ -419,6 +423,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "";
+				"CURRENT_PROJECT_VERSION[sdk=*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -440,6 +446,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -484,6 +491,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -499,6 +507,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.21;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -539,7 +548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsproductions.pcollect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -581,7 +590,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsproductions.pcollect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

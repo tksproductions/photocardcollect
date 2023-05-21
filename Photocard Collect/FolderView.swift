@@ -121,6 +121,44 @@ struct FolderView: View {
         .navigationBarTitleDisplayMode(.inline)
         
         .toolbar {
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if isSelecting {
+                    Button(action: {
+                        withAnimation {
+                            for id in selectedPhotocards {
+                                folder.photocards.removeAll(where: { $0.id == id })
+                            }
+                            userData.saveFolders()
+                            selectedPhotocards.removeAll()
+                            isSelecting.toggle()
+                        }
+                    }) {
+                        Image(systemName: "trash")
+                    }
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if isSelecting {
+                    Button(action: {
+                        withAnimation {
+                            for id in selectedPhotocards {
+                                if let index = folder.photocards.firstIndex(where: { $0.id == id }) {
+                                    folder.photocards[index].isWishlisted = !folder.photocards[index].isWishlisted
+                                    if (folder.photocards[index].isWishlisted){
+                                        folder.photocards[index].isCollected = false // Set isCollected to false
+                                    }
+                                }
+                            }
+                            userData.saveFolders()
+                            selectedPhotocards.removeAll()
+                            isSelecting.toggle() // Add this line to toggle isSelecting state
+                        }
+                    }) {
+                        Image(systemName: "star")
+                    }
+                }
+            }
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isSelecting {
@@ -143,44 +181,6 @@ struct FolderView: View {
                     }
                 }
             }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if isSelecting {
-                    Button(action: {
-                        withAnimation {
-                            for id in selectedPhotocards {
-                                if let index = folder.photocards.firstIndex(where: { $0.id == id }) {
-                                    folder.photocards[index].isWishlisted = !folder.photocards[index].isWishlisted
-                                    if (folder.photocards[index].isWishlisted){
-                                        folder.photocards[index].isCollected = false // Set isCollected to false
-                                    }
-                                }
-                            }
-                            userData.saveFolders()
-                            selectedPhotocards.removeAll()
-                            isSelecting.toggle() // Add this line to toggle isSelecting state
-                        }
-                    }) {
-                        Image(systemName: "star")
-                    }
-                }
-            }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if isSelecting {
-                            Button(action: {
-                                withAnimation {
-                                    for id in selectedPhotocards {
-                                        folder.photocards.removeAll(where: { $0.id == id })
-                                    }
-                                    userData.saveFolders()
-                                    selectedPhotocards.removeAll()
-                                    isSelecting.toggle()
-                                }
-                            }) {
-                                Image(systemName: "trash")
-                            }
-                        }
-                    }
 
         
             ToolbarItem(placement: .navigationBarLeading) {
