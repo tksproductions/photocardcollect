@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, int min_size = 100) {
+std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, int min_size = 100, int max_size = 1000) {
     cv::Mat gray;
     cv::cvtColor(input_image, gray, cv::COLOR_BGR2GRAY);
 
@@ -12,7 +12,7 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
     cv::threshold(gray, threshold, 0, 255, cv::THRESH_BINARY_INV + cv::THRESH_OTSU);
 
     std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(threshold, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+    cv::findContours(threshold, contours, cv::RETR_LIST, cv::CHAIN_APPROX_SIMPLE);
 
     std::vector<cv::Mat> extracted_photos;
     int idx = 0;
@@ -25,9 +25,9 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
         int h = rect.height;
         float ratio = static_cast<float>(w) / static_cast<float>(h);
 
-        if (aspect_ratio.first / aspect_ratio.second * 0.8 <= ratio && ratio <= aspect_ratio.first / aspect_ratio.second * 1.2 && w >= min_size && h >= min_size) {
-            idx++;
-            cv::Mat photo = input_image(cv::Rect(x, y, w, h));
+        if (aspect_ratio.first / aspect_ratio.second * 0.8 <= ratio && ratio <= aspect_ratio.first / aspect_ratio.second * 1.2 
+            && min_size <= w && w <= max_size && min_size <= h && h <= max_size) {
+            cv::Mat photo = input_image(rect);
             extracted_photos.push_back(photo);
         }
     }
