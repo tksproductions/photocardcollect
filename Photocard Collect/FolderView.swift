@@ -3,8 +3,6 @@ import UIKit
 import PhotosUI
 import CoreImage
 
-
-
 struct FolderView: View {
     @EnvironmentObject private var userData: UserData
     @Binding private var folder: Folder
@@ -13,12 +11,18 @@ struct FolderView: View {
     @State private var selectedImage: UIImage?
     @State private var showRenameAlert = false
     @State private var showTemplateImagePicker = false
+    @State private var showSnippetView = false
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.horizontalSizeClass) var sizeClass
     @State private var isSelecting = false
     @State private var selectedPhotocards = Set<UUID>()
     @State private var showISOView = false
+    @State private var showActionSheet = false
+    @State private var selectedRectangles: [HashableRect] = []
+    @State private var selectedImageForSnippet: UIImage?
+    @State private var showSnippetPicker = false
+
     
     var wishlistedPhotocards: [Photocard] {
         folder.photocards.filter { $0.isWishlisted }
@@ -48,7 +52,7 @@ struct FolderView: View {
                 return folder.photocards[$0].isCollected == false && folder.photocards[$1].isCollected == true
             }
         }
-
+        
         ScrollView {
             if folder.photocards.isEmpty {
                 VStack(spacing: 20) {
@@ -159,14 +163,14 @@ struct FolderView: View {
                     }
                 }
             }
-
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isSelecting {
                     Button(action: {
                         withAnimation {
                             for id in selectedPhotocards {
                                 if let index = folder.photocards.firstIndex(where: { $0.id == id }) {
-                                folder.photocards[index].isCollected = !folder.photocards[index].isCollected
+                                    folder.photocards[index].isCollected = !folder.photocards[index].isCollected
                                     if (folder.photocards[index].isCollected){
                                         folder.photocards[index].isWishlisted = false
                                     }
@@ -181,8 +185,8 @@ struct FolderView: View {
                     }
                 }
             }
-
-        
+            
+            
             ToolbarItem(placement: .navigationBarLeading) {
                 if !isSelecting {
                     Button(action: {
@@ -195,8 +199,7 @@ struct FolderView: View {
                     }
                 }
             }
-
-
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isSelecting {
                     Button(action: {
@@ -207,16 +210,33 @@ struct FolderView: View {
                     }) {
                         Text("Cancel")
                     }
-                } else {
+                }
+                else {
                     Button(action: {
-                        showTemplateImagePicker = true
+                        showActionSheet = true
                     }) {
-                        Image(systemName: "sparkles")
+                        // Chose the "square.grid.2x2" as the icon for the button. Feel free to change it
+                        Image(systemName: "square.grid.2x2")
                             .foregroundColor(Color(hex: "FF2E98"))
+                    }
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(
+                            title: Text("Convert Template"),
+                            message: Text("Select how to add the photocards."),
+                            buttons: [
+                                .default(Text("Auto"), action: {
+                                    showTemplateImagePicker = true
+                                }),
+                                .default(Text("Snippet"), action: {
+                                    showSnippetView = true
+                                }),
+                                .cancel()
+                            ]
+                        )
                     }
                 }
             }
-
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isSelecting {
                     Button(action: {
@@ -227,17 +247,17 @@ struct FolderView: View {
                             .foregroundColor(Color(hex: "FF2E98"))
                     }
                     .sheet(isPresented: $showImagePicker, onDismiss: {
-                         for selectedImage in selectedImages {
-                             folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
-                         }
-                         selectedImages.removeAll()
-                     }) {
-                         // Present the image picker
-                         ImagePicker(selectedImages: $selectedImages)
-                     }
+                        for selectedImage in selectedImages {
+                            folder.photocards.append(Photocard(image: selectedImage, isCollected: false))
+                        }
+                        selectedImages.removeAll()
+                    }) {
+                        // Present the image picker
+                        ImagePicker(selectedImages: $selectedImages)
+                    }
                 }
             }
-
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isSelecting {
                     Button(action: {
@@ -266,8 +286,9 @@ struct FolderView: View {
             TextField("New Name", text: $newName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-    
-        }   .sheet(isPresented: $showTemplateImagePicker, onDismiss: {
+        }
+        
+        .sheet(isPresented: $showTemplateImagePicker, onDismiss: {
             
             if let selectedImage = selectedImage {
                 if let extractedPhotos = extractPhotos(selectedImage) {
@@ -281,8 +302,17 @@ struct FolderView: View {
             ImagePicker2(selectedImage: $selectedImage)
         }
         
+        .sheet(isPresented: $showSnippetView, onDismiss: {
+            if let selectedImageForSnippet = selectedImageForSnippet {
+                showSnippetPicker = true
+            }
+        }) {
+            ImagePicker2(selectedImage: $selectedImageForSnippet)
+        }
+        .sheet(isPresented: $showSnippetPicker) {
+            SnippetPicker(selectedImage: $selectedImageForSnippet, selectedRectangles: $selectedRectangles, folder: $folder)
+        }
     }
-
     
     @Environment(\.presentationMode) var presentationMode
 
@@ -295,6 +325,147 @@ struct FolderView: View {
         userData.saveFolders()
     }
 }
+
+struct HashableRect: Hashable {
+    var rect: CGRect
+
+    static func == (lhs: HashableRect, rhs: HashableRect) -> Bool {
+        return lhs.rect.origin.x == rhs.rect.origin.x &&
+               lhs.rect.origin.y == rhs.rect.origin.y &&
+               lhs.rect.size.width == rhs.rect.size.width &&
+               lhs.rect.size.height == rhs.rect.size.height
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(rect.origin.x)
+        hasher.combine(rect.origin.y)
+        hasher.combine(rect.size.width)
+        hasher.combine(rect.size.height)
+    }
+}
+
+struct SnippetPicker: View {
+    @Binding var selectedImage: UIImage?
+    @Binding var selectedRectangles: [HashableRect]
+    @State private var drawingRect = CGRect.zero
+    @Binding var folder: Folder
+    @Environment(\.presentationMode) var presentationMode
+    @State private var geometrySize: CGSize = .zero
+    
+    var body: some View {
+        NavigationView {
+            GeometryReader { geometry in
+                ZStack {
+                    Image(uiImage: selectedImage ?? UIImage())
+                        .resizable()
+                        .scaledToFit()
+                    
+                    ForEach(selectedRectangles, id: \.self) { hashableRect in
+                        Rectangle()
+                            .path(in: hashableRect.rect)
+                            .stroke(Color.red)
+                    }
+                    
+                    Rectangle()
+                        .path(in: drawingRect)
+                        .stroke(Color.red)
+                }
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            let startPoint = value.startLocation
+                            let endPoint = value.location
+                            
+                            let minX = min(startPoint.x, endPoint.x)
+                            let minY = min(startPoint.y, endPoint.y)
+                            let maxX = max(startPoint.x, endPoint.x)
+                            let maxY = max(startPoint.y, endPoint.y)
+                            
+                            drawingRect = CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+                        }
+                        .onEnded { value in
+                            selectedRectangles.append(HashableRect(rect: drawingRect))
+                            drawingRect = CGRect.zero
+                        }
+                )
+                .onAppear {
+                    self.geometrySize = geometry.size
+                    selectedRectangles = []
+                }
+            }
+            .navigationBarTitle("Snippet Picker", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        if let image = selectedImage, !geometrySize.equalTo(CGSize.zero) {
+                            for selectedRect in selectedRectangles {
+                                let convertedRect = convertToImageCoordinates(rect: selectedRect.rect, imageSize: image.size, viewSize: self.geometrySize)
+                                if convertedRect.width > 0, convertedRect.height > 0, let croppedImage = cropImage(image: image, toRect: convertedRect) {
+                                    folder.photocards.append(Photocard(image: croppedImage, isCollected: false))
+                                }
+                            }
+                        }
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
+        }
+    }
+    
+    func convertToImageCoordinates(rect: CGRect, imageSize: CGSize, viewSize: CGSize) -> CGRect {
+        // Calculate the scaling factor and the image's position within the view
+        let scale: CGFloat
+        let xOffset: CGFloat
+        let yOffset: CGFloat
+
+        if imageSize.width / imageSize.height > viewSize.width / viewSize.height {
+            scale = viewSize.width / imageSize.width
+            xOffset = 0
+            yOffset = (viewSize.height - imageSize.height * scale) / 2
+        } else {
+            scale = viewSize.height / imageSize.height
+            xOffset = (viewSize.width - imageSize.width * scale) / 2
+            yOffset = 0
+        }
+
+        // Adjust the rectangle's position and size according to the scaling factor and the image's position
+        let x = (rect.origin.x - xOffset) / scale
+        let y = (rect.origin.y - yOffset) / scale
+        let width = rect.size.width / scale
+        let height = rect.size.height / scale
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+
+
+    
+    func cropImage(image: UIImage, toRect rect: CGRect) -> UIImage? {
+        guard let cgImage = image.cgImage else {
+            return nil
+        }
+        
+        let contextImage: UIImage
+        if image.imageOrientation != .up {
+            UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+            image.draw(in: CGRect(origin: .zero, size: image.size))
+            contextImage = UIGraphicsGetImageFromCurrentImageContext() ?? image
+            UIGraphicsEndImageContext()
+        } else {
+            contextImage = image
+        }
+        
+        if let croppedCGImage = cgImage.cropping(to: rect) {
+            return UIImage(cgImage: croppedCGImage)
+        }
+        
+        return nil
+    }
+}
+
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImages: [UIImage]

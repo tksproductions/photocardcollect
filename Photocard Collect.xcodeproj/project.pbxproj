@@ -21,6 +21,7 @@
 		8390499E2A0742B9003CD366 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390499D2A0742B9003CD366 /* UserData.swift */; };
 		839049A42A076284003CD366 /* FolderOrderingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839049A32A076284003CD366 /* FolderOrderingView.swift */; };
 		83A14A722A19486F006AF7C4 /* AppLifecycleListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */; };
+		83E37C852A1AA73F00D2E046 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E37C842A1AA73F00D2E046 /* Constants.swift */; };
 		83EAD0802A09B83100133660 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD07F2A09B83100133660 /* opencv2.framework */; };
 		83EAD0822A09B85C00133660 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD0812A09B85C00133660 /* Accelerate.framework */; };
 		83EAD0842A09B86700133660 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EAD0832A09B86700133660 /* CoreMedia.framework */; };
@@ -81,6 +82,8 @@
 		8390499D2A0742B9003CD366 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		839049A32A076284003CD366 /* FolderOrderingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderOrderingView.swift; sourceTree = "<group>"; };
 		83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLifecycleListener.swift; sourceTree = "<group>"; };
+		83E37C842A1AA73F00D2E046 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		83E37C892A1ABA8B00D2E046 /* Photocard Collect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Photocard Collect.entitlements"; sourceTree = "<group>"; };
 		83EAD07F2A09B83100133660 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		83EAD0812A09B85C00133660 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		83EAD0832A09B86700133660 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -155,6 +158,7 @@
 		8312643029FEF980001C4B53 /* Photocard Collect */ = {
 			isa = PBXGroup;
 			children = (
+				83E37C892A1ABA8B00D2E046 /* Photocard Collect.entitlements */,
 				8312643129FEF980001C4B53 /* Photocard_CollectApp.swift */,
 				8312643329FEF980001C4B53 /* ContentView.swift */,
 				8312643529FEF982001C4B53 /* Assets.xcassets */,
@@ -168,6 +172,7 @@
 				839049A32A076284003CD366 /* FolderOrderingView.swift */,
 				83F1A76D2A0F1A1C00F5B4C6 /* ISOView.swift */,
 				83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */,
+				83E37C842A1AA73F00D2E046 /* Constants.swift */,
 			);
 			path = "Photocard Collect";
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 				8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */,
 				83EAD08D2A09B8FD00133660 /* Wrapper.mm in Sources */,
 				83EAD0912A09BF2200133660 /* Wrapper.cpp in Sources */,
+				83E37C852A1AA73F00D2E046 /* Constants.swift in Sources */,
 				839049A42A076284003CD366 /* FolderOrderingView.swift in Sources */,
 				8312646229FEFB5F001C4B53 /* Folder.swift in Sources */,
 			);
@@ -526,6 +532,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_ENTITLEMENTS = "Photocard Collect/Photocard Collect.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -568,6 +575,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_ENTITLEMENTS = "Photocard Collect/Photocard Collect.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

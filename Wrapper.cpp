@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, int min_size = 100) {
+std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, float min_percentage = 0.5) {
     cv::Mat gray;
     cv::cvtColor(input_image, gray, cv::COLOR_BGR2GRAY);
 
@@ -15,7 +15,9 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
     cv::findContours(threshold, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
     std::vector<cv::Mat> extracted_photos;
-    int idx = 0;
+
+    int total_pixels = input_image.cols * input_image.rows;
+    int min_size = std::sqrt(min_percentage / 100. * total_pixels);
 
     for (const auto& cnt : contours) {
         cv::Rect rect = cv::boundingRect(cnt);
@@ -26,7 +28,6 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
         float ratio = static_cast<float>(w) / static_cast<float>(h);
 
         if (aspect_ratio.first / aspect_ratio.second * 0.8 <= ratio && ratio <= aspect_ratio.first / aspect_ratio.second * 1.2 && w >= min_size && h >= min_size) {
-            idx++;
             cv::Mat photo = input_image(cv::Rect(x, y, w, h));
             extracted_photos.push_back(photo);
         }
@@ -34,6 +35,7 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
 
     return extracted_photos;
 }
+
 
 cv::Mat UIImageToCVMat(UIImage *image) {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
