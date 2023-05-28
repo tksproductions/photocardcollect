@@ -433,7 +433,6 @@ struct SnippetPicker: View {
             yOffset = 0
         }
 
-        // Adjust the rectangle's position and size according to the scaling factor and the image's position
         let x = (rect.origin.x - xOffset) / scale
         let y = (rect.origin.y - yOffset) / scale
         let width = rect.size.width / scale
