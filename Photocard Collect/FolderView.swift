@@ -41,17 +41,32 @@ struct FolderView: View {
                 return [GridItem(.adaptive(minimum: 200))]
             }
         }
+        
         var sortedPhotocards: [Int] {
             folder.photocards.indices.sorted {
-                if folder.photocards[$0].isWishlisted {
-                    return true
+                let card1 = folder.photocards[$0]
+                let card2 = folder.photocards[$1]
+
+                if card1.isWishlisted != card2.isWishlisted {
+                    return card1.isWishlisted
                 }
-                if folder.photocards[$1].isWishlisted {
+                
+                if card1.isCollected != card2.isCollected {
+                    return card1.isCollected == false && card2.isCollected == true
+                }
+
+                if card1.name.isEmpty {
                     return false
                 }
-                return folder.photocards[$0].isCollected == false && folder.photocards[$1].isCollected == true
+                
+                if card2.name.isEmpty {
+                    return true
+                }
+                
+                return card1.name < card2.name
             }
         }
+
         
         ScrollView {
             if folder.photocards.isEmpty {
@@ -92,29 +107,40 @@ struct FolderView: View {
             else {
                 LazyVGrid(columns: gridLayout, spacing: 20) {
                     ForEach(sortedPhotocards, id: \.self) { index in
-                        PhotocardView(
-                            photocard: $folder.photocards[index],
-                            isSelected: .init(get: {
-                                
-                                selectedPhotocards.contains(folder.photocards[index].id)
-                            }, set: { newValue in
-                                if newValue {
-                                    selectedPhotocards.insert(folder.photocards[index].id)
-                                } else {
-                                    selectedPhotocards.remove(folder.photocards[index].id)
+                        VStack{
+                            PhotocardView(
+                                photocard: $folder.photocards[index],
+                                isSelected: .init(get: {
+                                    selectedPhotocards.contains(folder.photocards[index].id)
+                                }, set: { newValue in
+                                    if newValue {
+                                        selectedPhotocards.insert(folder.photocards[index].id)
+                                    } else {
+                                        selectedPhotocards.remove(folder.photocards[index].id)
+                                    }
+                                }),
+                                isSelecting: $isSelecting,
+                                deleteAction: {
+                                    folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
+                                    userData.saveFolders()
                                 }
-                            }),
-                            isSelecting: $isSelecting,
-                            deleteAction: {
-                                folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
-                                userData.saveFolders()
+                            )
+                            ZStack {
+                                Spacer()
+                                    .frame(height: 20)
+                                if folder.photocards[index].name.isEmpty {
+                                    Text(" ") // Placeholder
+                                        .font(.headline)
+                                } else {
+                                    Text(folder.photocards[index].name)
+                                        .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                                }
                             }
-                        )
-                        
+                        }
                     }
-                    
                     .onMove(perform: move)
                 }
+
                 .padding(20)
                 
             }
@@ -363,12 +389,12 @@ struct SnippetPicker: View {
                     ForEach(selectedRectangles, id: \.self) { hashableRect in
                         Rectangle()
                             .path(in: hashableRect.rect)
-                            .stroke(Color.red)
+                            .stroke(Constants.primaryColor, lineWidth: 3)
                     }
                     
                     Rectangle()
                         .path(in: drawingRect)
-                        .stroke(Color.red)
+                        .stroke(Constants.primaryColor, lineWidth: 3)
                 }
                 .gesture(
                     DragGesture(minimumDistance: 0)

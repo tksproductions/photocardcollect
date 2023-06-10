@@ -6,6 +6,8 @@ struct PhotocardView: View {
     @State var showExpandedView = false
     @Binding var isSelected: Bool
     @Binding var isSelecting: Bool
+    @State var showEditNameDialog = false
+    @State var newName = ""
     var screenWidth = UIScreen.main.bounds.width
     var deleteAction: () -> Void
 
@@ -16,7 +18,7 @@ struct PhotocardView: View {
                 .frame(width: 165, height: 255)
                 .shadow(radius: 3)
                 .opacity(photocard.isCollected ? 0.5 : 1)
-
+            
             Image(uiImage: photocard.image ?? UIImage())
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -25,6 +27,7 @@ struct PhotocardView: View {
                 .frame(width: 155, height: 245)
                 .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
         }
+        
         .frame(width: 165, height: 255)
         .opacity(isSelected ? 0.5 : 1)
         .contentShape(RoundedRectangle(cornerRadius: 10)) // Apply the content shape
@@ -49,7 +52,15 @@ struct PhotocardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
             }
         }
+
         .contextMenu {
+            Button(action: {
+                self.newName = self.photocard.name
+                self.showEditNameDialog = true
+            }) {
+                Label(photocard.name == "" ? "Add Name" : "Edit Name", systemImage: "pencil")
+            }
+            
             Button(action: {
                 photocard.isCollected.toggle()
                 photocard.isWishlisted = false
@@ -69,6 +80,53 @@ struct PhotocardView: View {
             }) {
                 Label("Delete Photocard", systemImage: "trash")
             }
+        }
+        .sheet(isPresented: $showEditNameDialog) {
+            VStack(spacing: 20) {
+                Text("Name Photocard")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
+
+                TextField("Photocard Name", text: $newName)
+                    .font(.title2)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10)
+                    .padding([.leading, .trailing])
+
+                HStack(spacing: 20) {
+                    Button(action: {
+                        self.showEditNameDialog = false
+                    }) {
+                        HStack {
+                            Image(systemName: "xmark.circle.fill")
+                            Text("Cancel")
+                        }
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .hoverEffect(.highlight)
+
+                    Button(action: {
+                        self.photocard.name = self.newName
+                        self.showEditNameDialog = false
+                    }) {
+                        HStack {
+                            Image(systemName: "checkmark.circle.fill")
+                            Text("Save")
+                        }
+                    }
+                    .padding()
+                    .background(Constants.primaryColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .hoverEffect(.highlight)
+                }
+            }
+            .padding()
         }
     }
 }

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var lifecycleListener: AppLifecycleListener
-
     var body: some View {
         NavigationView {
             FolderList()
@@ -42,3 +41,4 @@ extension Color {
                   blue: Double(rgbValue & 0x0000FF) / 255.0)
     }
 }
+
