@@ -43,27 +43,31 @@ struct FolderView: View {
         }
         
         var sortedPhotocards: [Int] {
-            folder.photocards.indices.sorted {
-                let card1 = folder.photocards[$0]
-                let card2 = folder.photocards[$1]
+            folder.photocards.indices.sorted { index1, index2 in
+                let card1 = folder.photocards[index1]
+                let card2 = folder.photocards[index2]
 
                 if card1.isWishlisted != card2.isWishlisted {
                     return card1.isWishlisted
                 }
-                
+
                 if card1.isCollected != card2.isCollected {
                     return card1.isCollected == false && card2.isCollected == true
                 }
 
-                if card1.name.isEmpty {
+                if let name1 = card1.name, let name2 = card2.name {
+                    if name1.isEmpty && !name2.isEmpty {
+                        return false
+                    } else if !name1.isEmpty && name2.isEmpty {
+                        return true
+                    } else {
+                        return name1 < name2
+                    }
+                } else if card1.name != nil {
+                    return true
+                } else {
                     return false
                 }
-                
-                if card2.name.isEmpty {
-                    return true
-                }
-                
-                return card1.name < card2.name
             }
         }
 
@@ -128,12 +132,12 @@ struct FolderView: View {
                             ZStack {
                                 Spacer()
                                     .frame(height: 20)
-                                if folder.photocards[index].name.isEmpty {
-                                    Text(" ") // Placeholder
-                                        .font(.headline)
-                                } else {
-                                    Text(folder.photocards[index].name)
+                                if let name = folder.photocards[index].name, !name.isEmpty {
+                                    Text(name)
                                         .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                                } else {
+                                    Text(" ")
+                                        .font(.headline)
                                 }
                             }
                         }

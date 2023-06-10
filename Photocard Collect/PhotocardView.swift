@@ -55,7 +55,11 @@ struct PhotocardView: View {
 
         .contextMenu {
             Button(action: {
-                self.newName = self.photocard.name
+                if let name = self.photocard.name {
+                    self.newName = name
+                } else {
+                    self.newName = ""
+                }
                 self.showEditNameDialog = true
             }) {
                 Label(photocard.name == "" ? "Add Name" : "Edit Name", systemImage: "pencil")
@@ -88,7 +92,7 @@ struct PhotocardView: View {
                     .fontWeight(.bold)
                     .padding(.top)
 
-                TextField("Photocard Name", text: $newName)
+                TextField("Add a name", text: $newName)
                     .font(.title2)
                     .padding()
                     .background(Color(.secondarySystemBackground))
