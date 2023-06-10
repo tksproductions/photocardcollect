@@ -2,6 +2,9 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var lifecycleListener: AppLifecycleListener
+    @State private var showUpdateAlert = false
+    let appStoreURL = URL(string: "https://apps.apple.com/us/app/pcollect/id6448884412")!
+    
     var body: some View {
         NavigationView {
             FolderList()
@@ -11,7 +14,6 @@ struct ContentView: View {
                         title: Text("Support PCollect?"),
                         message: Text("Help us keep PCollect free! Would you like to support us with a small donation?"),
                         primaryButton: .default(Text("Yes"), action: {
-                            // Open the donation link.
                             if let url = URL(string: "https://www.buymeacoffee.com/pcollect"), UIApplication.shared.canOpenURL(url) {
                                 UIApplication.shared.open(url)
                             }
@@ -19,11 +21,28 @@ struct ContentView: View {
                         secondaryButton: .cancel(Text("No"))
                     )
                 }
+                .alert(isPresented: $showUpdateAlert) {
+                    Alert(
+                        title: Text("New update!"),
+                        message: Text("Please update to the latest version of PCollect!"),
+                        dismissButton: .default(Text("OK"), action: {
+                            UIApplication.shared.open(appStoreURL)
+                        })
+                    )
+                }
+        }
+        .onAppear {
+            let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            let requiredVersion = "1.14"
+            
+            if currentVersion < requiredVersion {
+                showUpdateAlert = true
+            }
         }
     }
 }
 
-// 3. Don't forget to remove observer
+
 extension AppLifecycleListener {
     func removeNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)

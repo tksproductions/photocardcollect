@@ -1,7 +1,9 @@
 import SwiftUI
+
 struct FolderOrderingView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var folders: [Folder]
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         NavigationView {
@@ -22,12 +24,15 @@ struct FolderOrderingView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
                                     .clipShape(Circle())
+                                    .shadow(radius: 5)
                             } else {
                                 Image(systemName: "folder")
                                     .frame(width: 50, height: 50)
                                     .clipShape(Circle())
+                                    .shadow(radius: 5)
                             }
                             Text(folder.name)
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
                         }
                     }
                     .onMove(perform: move)
@@ -40,9 +45,11 @@ struct FolderOrderingView: View {
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("Done")
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
                         }
                 )
                 .environment(\.editMode, .constant(.active)) // make the list always in edit mode
+                .focused($isFocused)
                 Spacer()
             }
         }
@@ -52,4 +59,3 @@ struct FolderOrderingView: View {
         folders.move(fromOffsets: source, toOffset: destination)
     }
 }
-

@@ -125,8 +125,10 @@ struct FolderView: View {
                                 }),
                                 isSelecting: $isSelecting,
                                 deleteAction: {
-                                    folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
-                                    userData.saveFolders()
+                                    withAnimation {
+                                        folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
+                                        userData.saveFolders()
+                                    }
                                 }
                             )
                             ZStack {
