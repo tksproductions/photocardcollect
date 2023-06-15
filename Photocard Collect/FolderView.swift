@@ -109,7 +109,7 @@ struct FolderView: View {
                 .padding(.top, 50)
             }
             else {
-                LazyVGrid(columns: gridLayout, spacing: 20) {
+                LazyVGrid(columns: gridLayout, spacing: 10) {
                     ForEach(sortedPhotocards, id: \.self) { index in
                         VStack{
                             PhotocardView(
@@ -433,6 +433,13 @@ struct SnippetPicker: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Undo") {
+                        if !selectedRectangles.isEmpty {
+                            selectedRectangles.removeLast()
+                        }
+                    }.disabled(selectedRectangles.isEmpty)
+                }
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         if let image = selectedImage, !geometrySize.equalTo(CGSize.zero) {
                             for selectedRect in selectedRectangles {
