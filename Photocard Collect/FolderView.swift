@@ -18,7 +18,6 @@ struct FolderView: View {
     @State private var isSelecting = false
     @State private var selectedPhotocards = Set<UUID>()
     @State private var showISOView = false
-    @State private var showActionSheet = false
     @State private var selectedRectangles: [HashableRect] = []
     @State private var selectedImageForSnippet: UIImage?
     @State private var showSnippetPicker = false
@@ -94,10 +93,10 @@ struct FolderView: View {
                     }
                     VStack {
                         Button(action: {
-                            showTemplateImagePicker = true
+                            showSnippetView = true
                         }) {
                             HStack {
-                                Image(systemName: "sparkles")
+                                Image(systemName: "square.grid.2x2")
                                     .foregroundColor(Color(hex: "FF2E98"))
                                 Text("Convert Template")
                                     .foregroundColor(Color(hex: "FF2E98"))
@@ -245,26 +244,11 @@ struct FolderView: View {
                 }
                 else {
                     Button(action: {
-                        showActionSheet = true
+                        showSnippetView = true
                     }) {
                         // Chose the "square.grid.2x2" as the icon for the button. Feel free to change it
                         Image(systemName: "square.grid.2x2")
                             .foregroundColor(Color(hex: "FF2E98"))
-                    }
-                    .actionSheet(isPresented: $showActionSheet) {
-                        ActionSheet(
-                            title: Text("Convert Template"),
-                            message: Text("Select how to add the photocards."),
-                            buttons: [
-                                .default(Text("Auto"), action: {
-                                    showTemplateImagePicker = true
-                                }),
-                                .default(Text("Snippet"), action: {
-                                    showSnippetView = true
-                                }),
-                                .cancel()
-                            ]
-                        )
                     }
                 }
             }
@@ -425,7 +409,7 @@ struct SnippetPicker: View {
                     selectedRectangles = []
                 }
             }
-            .navigationBarTitle("Snippet Picker", displayMode: .inline)
+            .navigationBarTitle("Template to PC", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -433,11 +417,21 @@ struct SnippetPicker: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Undo") {
+                    Button(action: {
+                        autoSnip()
+                    }) {
+                        Image(systemName: "wand.and.rays.inverse")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
                         if !selectedRectangles.isEmpty {
                             selectedRectangles.removeLast()
                         }
-                    }.disabled(selectedRectangles.isEmpty)
+                    }) {
+                        Image(systemName: "arrow.uturn.left")
+                    }
+                    .disabled(selectedRectangles.isEmpty)
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
@@ -456,6 +450,36 @@ struct SnippetPicker: View {
         }
     }
     
+    func autoSnip() {
+        let rects = extractRectsObjC(selectedImage).map { $0.cgRectValue }
+        selectedRectangles = rects.map { HashableRect(rect: convertToViewCoordinates(rect: $0, imageSize: selectedImage?.size ?? CGSize(), viewSize: geometrySize)) }
+    }
+
+    
+    func convertToViewCoordinates(rect: CGRect, imageSize: CGSize, viewSize: CGSize) -> CGRect {
+        // Calculate the scaling factor and the image's position within the view
+        let scale: CGFloat
+        let xOffset: CGFloat
+        let yOffset: CGFloat
+
+        if imageSize.width / imageSize.height > viewSize.width / viewSize.height {
+            scale = viewSize.width / imageSize.width
+            xOffset = 0
+            yOffset = (viewSize.height - imageSize.height * scale) / 2
+        } else {
+            scale = viewSize.height / imageSize.height
+            xOffset = (viewSize.width - imageSize.width * scale) / 2
+            yOffset = 0
+        }
+
+        let x = rect.origin.x * scale + xOffset
+        let y = rect.origin.y * scale + yOffset
+        let width = rect.size.width * scale
+        let height = rect.size.height * scale
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+
+
     func convertToImageCoordinates(rect: CGRect, imageSize: CGSize, viewSize: CGSize) -> CGRect {
         // Calculate the scaling factor and the image's position within the view
         let scale: CGFloat

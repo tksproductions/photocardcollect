@@ -4,7 +4,21 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, float min_percentage = 0.5) {
+NSArray<NSValue *> *extractRectsObjC(UIImage *inputImage) {
+    std::vector<cv::Rect> rects = extractRectsCpp(inputImage);
+    NSMutableArray<NSValue *> *result = [NSMutableArray arrayWithCapacity:rects.size()];
+
+    for (const cv::Rect &rect : rects) {
+        // Convert cv::Rect to CGRect and add to the array
+        CGRect cgRect = CGRectMake(rect.x, rect.y, rect.width, rect.height);
+        [result addObject:[NSValue valueWithCGRect:cgRect]];
+    }
+
+    return result;
+}
+
+
+std::vector<std::pair<cv::Mat, cv::Rect>> extract_photos(cv::Mat input_image, std::pair<float, float> aspect_ratio = {5.5, 8.5}, float min_percentage = 0.5) {
     cv::Mat gray;
     cv::cvtColor(input_image, gray, cv::COLOR_BGR2GRAY);
 
@@ -14,7 +28,7 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(threshold, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
-    std::vector<cv::Mat> extracted_photos;
+    std::vector<std::pair<cv::Mat, cv::Rect>> extracted_photos;
 
     int total_pixels = input_image.cols * input_image.rows;
     int min_size = std::sqrt(min_percentage / 100. * total_pixels);
@@ -29,7 +43,7 @@ std::vector<cv::Mat> extract_photos(cv::Mat input_image, std::pair<float, float>
 
         if (aspect_ratio.first / aspect_ratio.second * 0.8 <= ratio && ratio <= aspect_ratio.first / aspect_ratio.second * 1.2 && w >= min_size && h >= min_size) {
             cv::Mat photo = input_image(cv::Rect(x, y, w, h));
-            extracted_photos.push_back(photo);
+            extracted_photos.push_back(std::make_pair(photo, rect));
         }
     }
 
@@ -112,11 +126,12 @@ UIImage *CVMatToUIImage(const cv::Mat &cvMat) {
 
 std::vector<UIImage *> extractPhotosCpp(UIImage *inputImage) {
     cv::Mat inputMat = UIImageToCVMat(inputImage);
-    std::vector<cv::Mat> extractedMats = extract_photos(inputMat);
+    std::vector<std::pair<cv::Mat, cv::Rect>> extractedPairs = extract_photos(inputMat);
     std::vector<UIImage *> extractedUIImages;
 
-    for (const auto &mat : extractedMats) {
+    for (const auto &pair : extractedPairs) {
         @autoreleasepool {
+            cv::Mat mat = pair.first;
             UIImage *uiImage = CVMatToUIImage(mat);
             UIImage *copiedImage = [UIImage imageWithCGImage:uiImage.CGImage scale:1.0 orientation:uiImage.imageOrientation];
             extractedUIImages.push_back(copiedImage);
@@ -124,4 +139,20 @@ std::vector<UIImage *> extractPhotosCpp(UIImage *inputImage) {
     }
 
     return extractedUIImages;
+}
+
+
+std::vector<cv::Rect> extractRectsCpp(UIImage *inputImage) {
+    cv::Mat inputMat = UIImageToCVMat(inputImage);
+    std::vector<std::pair<cv::Mat, cv::Rect>> extractedPairs = extract_photos(inputMat);
+    std::vector<cv::Rect> extractedRects;
+
+    for (const auto &pair : extractedPairs) {
+        @autoreleasepool {
+            cv::Rect rect = pair.second;
+            extractedRects.push_back(rect);
+        }
+    }
+
+    return extractedRects;
 }
