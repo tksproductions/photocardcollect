@@ -207,8 +207,11 @@ struct FolderList: View {
                     if let image = newFolderImage {
                         Image(uiImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 200)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 175, height: 175)
+                            .clipped()
+                            .border(colorScheme == .light ? Color.black : Color.white, width: 4)
+                            .cornerRadius(5)
                     }
                     
                     Button(action: {

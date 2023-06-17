@@ -13,6 +13,6 @@ class AppLifecycleListener: ObservableObject {
     }
 
     private func shouldAskToDonate() -> Bool {
-        return Int.random(in: 1...20) == 0
+        return Int.random(in: 1...30) == 1
     }
 }

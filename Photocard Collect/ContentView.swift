@@ -31,14 +31,6 @@ struct ContentView: View {
                     )
                 }
         }
-        .onAppear {
-            let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            let requiredVersion = "1.14"
-            
-            if currentVersion < requiredVersion {
-                showUpdateAlert = true
-            }
-        }
     }
 }
 

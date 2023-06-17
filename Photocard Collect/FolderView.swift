@@ -405,9 +405,13 @@ struct SnippetPicker: View {
                         }
                 )
                 .onAppear {
-                    self.geometrySize = geometry.size
-                    selectedRectangles = []
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.geometrySize = geometry.size
+                        print(geometry.size)
+                        selectedRectangles = []
+                    }
                 }
+
             }
             .navigationBarTitle("Template to PC", displayMode: .inline)
             .toolbar {
@@ -527,6 +531,7 @@ struct SnippetPicker: View {
         return nil
     }
 }
+
 
 
 struct ImagePicker: UIViewControllerRepresentable {

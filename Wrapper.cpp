@@ -9,7 +9,6 @@ NSArray<NSValue *> *extractRectsObjC(UIImage *inputImage) {
     NSMutableArray<NSValue *> *result = [NSMutableArray arrayWithCapacity:rects.size()];
 
     for (const cv::Rect &rect : rects) {
-        // Convert cv::Rect to CGRect and add to the array
         CGRect cgRect = CGRectMake(rect.x, rect.y, rect.width, rect.height);
         [result addObject:[NSValue valueWithCGRect:cgRect]];
     }
