@@ -24,7 +24,6 @@ extension Folder {
         self.name = name
         self.photocards = photocards
         
-        // Save the icon image file to the document directory with a unique filename
         if let icon = icon {
             let imageName = UUID().uuidString + ".png"
             self.iconImageName = imageName

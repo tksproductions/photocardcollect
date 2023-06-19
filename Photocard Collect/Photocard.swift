@@ -22,7 +22,6 @@ struct Photocard: Identifiable, Codable {
         isWishlisted = try container.decode(Bool.self, forKey: .isWishlisted)
         name = try container.decodeIfPresent(String.self, forKey: .name)
     }
-    
 }
 
 extension Photocard {

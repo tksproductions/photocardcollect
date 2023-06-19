@@ -217,7 +217,6 @@ struct FolderView: View {
                 }
             }
             
-            
             ToolbarItem(placement: .navigationBarLeading) {
                 if !isSelecting {
                     Button(action: {
