@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 import PhotosUI
 import CoreImage
+import StoreKit
 
 struct FolderView: View {
     @EnvironmentObject private var userData: UserData
@@ -447,6 +448,7 @@ struct SnippetPicker: View {
                             }
                         }
                         presentationMode.wrappedValue.dismiss()
+                        SKStoreReviewController.requestReview()
                     }
                 }
             }

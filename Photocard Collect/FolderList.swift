@@ -1,5 +1,7 @@
 import SwiftUI
 import UIKit
+import StoreKit
+
 struct FolderList: View {
     @State private var showAddFolderSheet = false
     @State private var showImagePicker = false
@@ -11,6 +13,7 @@ struct FolderList: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showInstructionsPopover = false
     @State private var showFolderOrderingView = false
+    @State private var showLoginView = false
     var body: some View {
         ScrollView {
             if userData.folders.isEmpty {
@@ -159,6 +162,7 @@ struct FolderList: View {
 
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     showInstructionsPopover = true
@@ -183,7 +187,6 @@ struct FolderList: View {
             
 
         }
-
         .sheet(isPresented: $showFolderOrderingView) {
             FolderOrderingView(folders: $userData.folders)
         }

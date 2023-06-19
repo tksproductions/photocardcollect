@@ -29,11 +29,10 @@ struct ISOView: View {
                     .background(Color.black)
             } else {
                 ZStack {
-                    Color.black // Set the background color of the larger frame to black
+                    Color.black
                     
                     VStack {
                         Spacer()
-                        ScrollView {
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: numColumns), spacing: 8) {
                                 ForEach(photocards) { photocard in
                                     if let image = photocard.image {
@@ -49,7 +48,6 @@ struct ISOView: View {
                             }
                             .padding(10)
                             .padding(.top, isSquare ? 2 : 12)
-                        }
                         .background(Color.white)
                         Spacer()
                     }

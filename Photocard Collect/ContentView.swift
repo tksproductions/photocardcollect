@@ -1,8 +1,8 @@
 import SwiftUI
+import StoreKit
 
 struct ContentView: View {
     @EnvironmentObject var lifecycleListener: AppLifecycleListener
-    @State private var showUpdateAlert = false
     let appStoreURL = URL(string: "https://apps.apple.com/us/app/pcollect/id6448884412")!
     
     var body: some View {
@@ -21,19 +21,9 @@ struct ContentView: View {
                         secondaryButton: .cancel(Text("No"))
                     )
                 }
-                .alert(isPresented: $showUpdateAlert) {
-                    Alert(
-                        title: Text("New update!"),
-                        message: Text("Please update to the latest version of PCollect!"),
-                        dismissButton: .default(Text("OK"), action: {
-                            UIApplication.shared.open(appStoreURL)
-                        })
-                    )
-                }
         }
     }
 }
-
 
 extension AppLifecycleListener {
     func removeNotifications() {

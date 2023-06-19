@@ -26,6 +26,7 @@ struct PhotocardView: View {
                 .overlay(isSelected ? Color(hex: "FF2E98").opacity(0.5) : Color.clear)
                 .frame(width: 155, height: 245)
                 .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
+            
         }
         
         .frame(width: 165, height: 255)
@@ -38,20 +39,62 @@ struct PhotocardView: View {
                 showExpandedView.toggle()
             }
         }
+        
         .sheet(isPresented: $showExpandedView) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(colorScheme == .light ? Color.black : Color.white)
-                    .frame(width: screenWidth - 20, height: (screenWidth-20) * 255/165)
-                    .shadow(radius: 3)
+            VStack {
+                Text(photocard.name ?? "Unnamed Photocard")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
 
-                Image(uiImage: photocard.image ?? UIImage())
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: screenWidth - 30, height: (screenWidth-30) * 255/165)
-                    .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(colorScheme == .light ? Color.black : Color.white)
+                        .frame(width: screenWidth - 20, height: (screenWidth-20) * 255/165)
+                        .shadow(radius: 3)
+
+                    Image(uiImage: photocard.image ?? UIImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: screenWidth - 30, height: (screenWidth-30) * 255/165)
+                        .clipShape(RoundedRectangle(cornerRadius: 10)) // Round the image corners
+                }
+
+                HStack(spacing: 20) {
+                    Button(action: {
+                        self.showExpandedView = false
+                    }) {
+                        HStack {
+                            Image(systemName: "xmark.circle.fill")
+                            Text("Close")
+                        }
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .hoverEffect(.highlight)
+
+                    Button(action: {
+                        UIImageWriteToSavedPhotosAlbum(photocard.image ?? UIImage(), nil, nil, nil)
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.down")
+                            Text("Save")
+                        }
+                    }
+                    .padding()
+                    .background(Constants.primaryColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .hoverEffect(.highlight)
+                }
+                .padding()
             }
+            .padding()
         }
+
+
 
         .contextMenu {
             Button(action: {
