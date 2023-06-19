@@ -2,8 +2,9 @@ import SwiftUI
 
 struct ISOView: View {
     var photocards: [Photocard]
-    var screenWidth = min(UIScreen.main.bounds.width, 700)
-    
+    var screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+    var screenHeight = UIScreen.main.bounds.height
+
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -14,42 +15,52 @@ struct ISOView: View {
                 .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-        .padding(.bottom, 20)
     }
-    
+
     private func photocardView(isSquare: Bool) -> some View {
-        let frameHeight: CGFloat = isSquare ? screenWidth : screenWidth * 16 / 9
-        return VStack {
+        GeometryReader { geometry in
+            let frameHeight: CGFloat = isSquare ? geometry.size.width : min(geometry.size.width * 15 / 9, geometry.size.height)
+            let (numColumns, imageWidth, imageHeight) = calculateGrid(screenWidth: geometry.size.width * 0.90, frameHeight: frameHeight * 0.90, numImages: photocards.count)
+            
             if photocards.isEmpty {
                 Text("No photocards in wishlist.")
                     .foregroundColor(.black)
+                    .frame(width: geometry.size.width, height: frameHeight, alignment: .center)
+                    .background(Color.black)
             } else {
-                let (numColumns, imageWidth, imageHeight) = calculateGrid(screenWidth: screenWidth * 0.90, frameHeight: frameHeight * 0.90, numImages: photocards.count)
-                
-                ScrollView {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: numColumns), spacing: 8) {
-                        ForEach(photocards) { photocard in
-                            if let image = photocard.image {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: imageWidth, height: imageHeight)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
-                                    .padding(0)
+                ZStack {
+                    Color.black // Set the background color of the larger frame to black
+                    
+                    VStack {
+                        Spacer()
+                        ScrollView {
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: numColumns), spacing: 8) {
+                                ForEach(photocards) { photocard in
+                                    if let image = photocard.image {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: imageWidth, height: imageHeight)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
+                                            .padding(0)
+                                    }
+                                }
                             }
+                            .padding(10)
+                            .padding(.top, isSquare ? 2 : 12)
                         }
+                        .background(Color.white)
+                        Spacer()
                     }
-                    .padding(10)
-                    .padding(.top, 15)
+                    .frame(width: geometry.size.width, height: frameHeight, alignment: .center)
                 }
-                .disabled(true)
             }
         }
-        .frame(width: screenWidth, height: frameHeight)
-        .background(Color.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .background(Color.black)
     }
-    
+
     private func calculateGrid(screenWidth: CGFloat, frameHeight: CGFloat, numImages: Int) -> (Int, CGFloat, CGFloat) {
         let ratio: CGFloat = 2 / 3  // Aspect ratio of the images (2:3)
         let totalArea = screenWidth * frameHeight
