@@ -22,7 +22,6 @@ struct FolderView: View {
     @State private var selectedRectangles: [HashableRect] = []
     @State private var selectedImageForSnippet: UIImage?
     @State private var showSnippetPicker = false
-
     
     var wishlistedPhotocards: [Photocard] {
         folder.photocards.filter { $0.isWishlisted }
@@ -127,7 +126,7 @@ struct FolderView: View {
                                 deleteAction: {
                                     withAnimation {
                                         folder.photocards.removeAll(where: { $0.id == folder.photocards[index].id })
-                                        userData.saveFolders()
+                                        //userData.saveFolders()
                                     }
                                 }
                             )
@@ -165,7 +164,7 @@ struct FolderView: View {
                             for id in selectedPhotocards {
                                 folder.photocards.removeAll(where: { $0.id == id })
                             }
-                            userData.saveFolders()
+                            //userData.saveFolders()
                             selectedPhotocards.removeAll()
                             isSelecting.toggle()
                         }
@@ -186,7 +185,7 @@ struct FolderView: View {
                                     }
                                 }
                             }
-                            userData.saveFolders()
+                           // userData.saveFolders()
                             selectedPhotocards.removeAll()
                             isSelecting.toggle() // Add this line to toggle isSelecting state
                         }
@@ -208,7 +207,7 @@ struct FolderView: View {
                                     }
                                 }
                             }
-                            userData.saveFolders()
+                           // userData.saveFolders()
                             selectedPhotocards.removeAll()
                             isSelecting.toggle()
                         }
@@ -338,7 +337,7 @@ struct FolderView: View {
     
     private func move(from source: IndexSet, to destination: Int) {
         folder.photocards.move(fromOffsets: source, toOffset: destination)
-        userData.saveFolders()
+        //userData.saveFolders()
     }
 }
 
@@ -407,7 +406,6 @@ struct SnippetPicker: View {
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.geometrySize = geometry.size
-                        print(geometry.size)
                         selectedRectangles = []
                     }
                 }
@@ -448,7 +446,11 @@ struct SnippetPicker: View {
                             }
                         }
                         presentationMode.wrappedValue.dismiss()
-                        SKStoreReviewController.requestReview()
+                        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                            DispatchQueue.main.async {
+                                SKStoreReviewController.requestReview(in: scene)
+                            }
+                        }
                     }
                 }
             }

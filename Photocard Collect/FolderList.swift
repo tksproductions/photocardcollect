@@ -1,19 +1,17 @@
 import SwiftUI
 import UIKit
-import StoreKit
-
 struct FolderList: View {
     @State private var showAddFolderSheet = false
     @State private var showImagePicker = false
+    @State private var showAuthView = false
     @State private var newFolderName = ""
     @State private var newFolderImage: UIImage?
     @State private var selectedFolder: Folder?
-    @StateObject private var userData = UserData()
+    @EnvironmentObject var userData: UserData
     @State private var editMode = false
     @Environment(\.colorScheme) var colorScheme
     @State private var showInstructionsPopover = false
     @State private var showFolderOrderingView = false
-    @State private var showLoginView = false
     var body: some View {
         ScrollView {
             if userData.folders.isEmpty {
@@ -62,18 +60,15 @@ struct FolderList: View {
                             }
                             .contextMenu {
                                 Button(action: {
-                                    // Set the selected folder to the current folder
                                     selectedFolder = userData.folders[index]
-                                    // Show the sheet to edit the folder
                                     showAddFolderSheet = true
                                 }) {
                                     Text("Edit")
                                     Image(systemName: "pencil")
                                 }
                                 Button(action: {
-                                    // Remove the folder from the list
                                     userData.folders.removeAll(where: { $0.id == userData.folders[index].id })
-                                    userData.saveFolders()
+                                    //userData.saveFolders()
                                 }) {
                                     Text("Delete")
                                     Image(systemName: "trash")
@@ -86,9 +81,9 @@ struct FolderList: View {
             }
         }
         .padding(.top, 20)
-        .frame(maxWidth: 800) // Limit the width
-        .padding(.horizontal, 10) // Add a bit of padding
-        .centered() // Create this extension
+        .frame(maxWidth: 800)
+        .padding(.horizontal, 10)
+        .centered()
         
         .navigationTitle("Idols")
         .popover(isPresented: $showInstructionsPopover, arrowEdge: .top) {
@@ -162,12 +157,18 @@ struct FolderList: View {
 
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     showInstructionsPopover = true
                 }) {
                     Image(systemName: "info.circle")
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showAuthView = true
+                }) {
+                    Image(systemName: "person.circle")
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -187,11 +188,13 @@ struct FolderList: View {
             
 
         }
+
         .sheet(isPresented: $showFolderOrderingView) {
             FolderOrderingView(folders: $userData.folders)
         }
-
-        
+        .sheet(isPresented: $showAuthView) {
+            AuthenticationView()
+        }
         .sheet(isPresented: $showAddFolderSheet) {
             NavigationView {
                 VStack(spacing: 20) {
@@ -218,7 +221,6 @@ struct FolderList: View {
                     }
                     
                     Button(action: {
-                        // Show the image picker when the user taps the select image button
                         showImagePicker = true
                     }) {
                         Text("Select Image")
@@ -245,32 +247,28 @@ struct FolderList: View {
 
                         Button(action: {
                             if newFolderName.isEmpty {
-                                // Display an alert informing the user that a name is required to save the folder
                                 let alert = UIAlertController(title: "Name Required", message: "Please enter a name for the folder.", preferredStyle: .alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                                 guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }; window.rootViewController?.present(alert, animated: true, completion: nil)
                             } else if newFolderImage == nil {
-                                // Display an alert informing the user that an image is required to save the folder
                                 let alert = UIAlertController(title: "Image Required", message: "Please select an image for the folder.", preferredStyle: .alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                                 guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }; window.rootViewController?.present(alert, animated: true, completion: nil)
                             } else if let folderIndex = userData.folders.firstIndex(where: { $0.id == selectedFolder?.id }) {
-                                // Create a new folder with the entered name and icon
                                 let updatedFolder = Folder(
                                     name: newFolderName,
                                     icon: newFolderImage!,
                                     photocards: selectedFolder!.photocards
                                 )
-                                // Replace the old folder with the updated folder
                                 userData.folders[folderIndex] = updatedFolder
                                 showAddFolderSheet = false
                                 selectedFolder = nil
                             } else {
-                                // Create a new folder with the entered name and icon
                                 let newFolder = Folder(name: newFolderName, icon: newFolderImage, photocards: [])
                                 userData.folders.append(newFolder)
                                 showAddFolderSheet = false
                                 selectedFolder = nil
+                                //userData.saveFolders()
                             }
                         }) {
                             HStack {

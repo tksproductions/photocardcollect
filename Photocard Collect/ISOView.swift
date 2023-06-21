@@ -60,7 +60,10 @@ struct ISOView: View {
     }
 
     private func calculateGrid(screenWidth: CGFloat, frameHeight: CGFloat, numImages: Int) -> (Int, CGFloat, CGFloat) {
-        let ratio: CGFloat = 2 / 3  // Aspect ratio of the images (2:3)
+        guard numImages > 0 else {
+            return (0, screenWidth, frameHeight)
+        }
+        let ratio: CGFloat = 2 / 3
         let totalArea = screenWidth * frameHeight
         let imageArea = totalArea / CGFloat(numImages)
         var imageWidth = sqrt(imageArea * ratio)
