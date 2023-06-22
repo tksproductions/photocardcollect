@@ -44,6 +44,19 @@ class AuthenticationService: ObservableObject {
             }
         }
     }
+    
+    func isEmailVerified() -> Bool {
+        guard let auth = auth else { return false }
+        guard let currentUser = auth.currentUser else { return false }
+        currentUser.reload { [weak self] error in
+            if let error = error {
+                print("Failed to reload user with error: \(error.localizedDescription)")
+            } else {
+                self?.user = auth.currentUser
+            }
+        }
+        return currentUser.isEmailVerified
+    }
 
     func signOut() {
         guard let auth = auth else { return }
@@ -83,6 +96,22 @@ class AuthenticationService: ObservableObject {
                     let userId = user.uid
                     self?.userData?.createUserDocument(for: userId)
                 }
+            }
+        }
+    }
+    
+    func resendVerificationEmail() {
+        guard let auth = auth else { return }
+        guard let user = auth.currentUser else {
+            self.errorMessage = "No user found."
+            return
+        }
+        
+        user.sendEmailVerification { error in
+            if let error = error {
+                self.errorMessage = "Failed to resend verification email with error: \(error.localizedDescription)"
+            } else {
+                self.errorMessage = "Verification email resent."
             }
         }
     }

@@ -23,7 +23,6 @@
 		83A14A722A19486F006AF7C4 /* AppLifecycleListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */; };
 		83B05EF82A436EF800A5CACD /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B05EF72A436EF700A5CACD /* AuthenticationService.swift */; };
 		83B05EFA2A436F0900A5CACD /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B05EF92A436F0800A5CACD /* AuthenticationView.swift */; };
-		83B05EFC2A436F2C00A5CACD /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B05EFB2A436F2C00A5CACD /* UsernameView.swift */; };
 		83B05EFF2A436FDC00A5CACD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 83B05EFE2A436FDC00A5CACD /* FirebaseAuth */; };
 		83B05F012A436FDC00A5CACD /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83B05F002A436FDC00A5CACD /* FirebaseFirestoreSwift */; };
 		83E37C852A1AA73F00D2E046 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E37C842A1AA73F00D2E046 /* Constants.swift */; };
@@ -90,7 +89,6 @@
 		83A14A712A19486F006AF7C4 /* AppLifecycleListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLifecycleListener.swift; sourceTree = "<group>"; };
 		83B05EF72A436EF700A5CACD /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		83B05EF92A436F0800A5CACD /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
-		83B05EFB2A436F2C00A5CACD /* UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
 		83E37C842A1AA73F00D2E046 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83E37C892A1ABA8B00D2E046 /* Photocard Collect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Photocard Collect.entitlements"; sourceTree = "<group>"; };
 		83EAD07F2A09B83100133660 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				83E37C842A1AA73F00D2E046 /* Constants.swift */,
 				83B05EF72A436EF700A5CACD /* AuthenticationService.swift */,
 				83B05EF92A436F0800A5CACD /* AuthenticationView.swift */,
-				83B05EFB2A436F2C00A5CACD /* UsernameView.swift */,
 			);
 			path = "Photocard Collect";
 			sourceTree = "<group>";
@@ -379,7 +376,6 @@
 				8312645E29FEF9C5001C4B53 /* PhotocardView.swift in Sources */,
 				8312645C29FEF995001C4B53 /* Photocard.swift in Sources */,
 				83F1A76E2A0F1A1D00F5B4C6 /* ISOView.swift in Sources */,
-				83B05EFC2A436F2C00A5CACD /* UsernameView.swift in Sources */,
 				8312643229FEF980001C4B53 /* Photocard_CollectApp.swift in Sources */,
 				83B05EF82A436EF800A5CACD /* AuthenticationService.swift in Sources */,
 				83EAD08D2A09B8FD00133660 /* Wrapper.mm in Sources */,
