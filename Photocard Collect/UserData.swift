@@ -41,29 +41,13 @@ class UserData: ObservableObject {
         
     }
 
-    public func saveFolders() {
-        guard let userId = authService?.user?.uid else {
-            return
+    func loadFoldersFromUserDefaults() -> [Folder] {
+        let folderKey = "folders"
+        if let folderData = UserDefaults.standard.data(forKey: folderKey),
+           let decodedFolders = try? JSONDecoder().decode([Folder].self, from: folderData) {
+            return decodedFolders
         }
-
-        guard let db = db else {
-            return
-        }
-
-        for folder in folders {
-            do {
-                let folderData = try Firestore.Encoder().encode(folder)
-                db.collection("users").document(userId).collection("folders").document(folder.id.uuidString).setData(folderData) { error in
-                    if let error = error {
-                        print("Error writing folder to Firestore: \(error)")
-                    } else {
-                        print("Folder saved to Firestore successfully!")
-                    }
-                }
-            } catch let error {
-                print("Error encoding folder data: \(error)")
-            }
-        }
+        return []
     }
 
     private func loadFolders(for userId: String?) {
@@ -71,7 +55,7 @@ class UserData: ObservableObject {
             return
         }
 
-        db.collection("users").document(userId).collection("folders").getDocuments { [weak self] (querySnapshot, error) in
+        db.collection("users").document(userId).collection("folders").order(by: "orderIndex").getDocuments { [weak self] (querySnapshot, error) in
             if let error = error {
                 print("Error getting folders: \(error)")
             } else {
@@ -83,6 +67,47 @@ class UserData: ObservableObject {
             }
         }
     }
+
+    public func saveFolders() {
+        guard let userId = authService?.user?.uid, let db = db else {
+            return
+        }
+
+        // First, delete all existing folders
+        db.collection("users").document(userId).collection("folders").getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    document.reference.delete { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                    }
+                }
+
+                // Then, add the new folders
+                for (index, folder) in self.folders.enumerated() {
+                    do {
+                        var folderData = try Firestore.Encoder().encode(folder)
+                        folderData["orderIndex"] = index
+                        db.collection("users").document(userId).collection("folders").document(folder.id.uuidString).setData(folderData) { error in
+                            if let error = error {
+                                print("Error writing folder to Firestore: \(error)")
+                            } else {
+                                print("Folder saved to Firestore successfully!")
+                            }
+                        }
+                    } catch let error {
+                        print("Error encoding folder data: \(error)")
+                    }
+                }
+            }
+        }
+    }
+
 
     private func loadUsername(for userId: String?) {
         guard let userId = userId, let db = db else {
@@ -119,17 +144,25 @@ class UserData: ObservableObject {
         }
     }
     
+    func clearFoldersFromUserDefaults() {
+        UserDefaults.standard.removeObject(forKey: "folders")
+    }
+
     func createUserDocument(for userId: String) {
         guard let db = db else {
             return
         }
 
         let ref = db.collection("users").document(userId)
-        ref.setData(["folders": []]) { error in
+        ref.setData(["folders": []]) { [weak self] error in
             if let error = error {
                 print("Error creating user document: \(error)")
             } else {
                 print("User document successfully created!")
+
+                self?.folders = self?.loadFoldersFromUserDefaults() ?? []
+                self?.saveFolders()
+                self?.clearFoldersFromUserDefaults()
             }
         }
     }

@@ -9,6 +9,7 @@ struct AuthenticationView: View {
     
     var body: some View {
         VStack(spacing: 10) {
+            Spacer()
             Text("Account Center")
                 .font(.largeTitle)
                 .fontWeight(.bold)
@@ -153,6 +154,12 @@ struct AuthenticationView: View {
                     .padding(.horizontal)
                     .multilineTextAlignment(.center)
             }
+            Spacer()
+            Text("Welcome to PCollect's new account-based system! Safeguard your photocards across all devices, and secure a unique username for our upcoming social features. Rest assured, all pre-update photocards will reappear post sign-up. Enjoy seamless collecting with PCollect!")
+                .font(.footnote)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 10)
+                .foregroundColor(.gray)
         }
         .padding()
     }

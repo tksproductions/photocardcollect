@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 struct FolderList: View {
+    @EnvironmentObject var authService: AuthenticationService
     @State private var showAddFolderSheet = false
     @State private var showImagePicker = false
     @State private var showAuthView = false
@@ -12,15 +13,17 @@ struct FolderList: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showInstructionsPopover = false
     @State private var showFolderOrderingView = false
+    @State private var selection = 0
     var body: some View {
         ScrollView {
             if userData.folders.isEmpty {
                 VStack (spacing:20) {
+                    if authService.isSignedIn {
                         Text("No idols added")
                             .font(.title2)
                             .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                             .padding(.top, UIScreen.main.bounds.width/2)
-
+                        
                         Button(action: {
                             showAddFolderSheet = true
                         }) {
@@ -31,6 +34,24 @@ struct FolderList: View {
                                     .foregroundColor(Color(hex: "FF2E98"))
                             }
                         }
+                        }
+                    else {
+                        Text("Not Signed In")
+                            .font(.title2)
+                            .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                            .padding(.top, UIScreen.main.bounds.width/2)
+                        
+                        Button(action: {
+                            showAuthView = true
+                        }) {
+                            HStack {
+                                Image(systemName: "person.circle")
+                                    .foregroundColor(Color(hex: "FF2E98"))
+                                Text("Sign In")
+                                    .foregroundColor(Color(hex: "FF2E98"))
+                            }
+                        }
+                    }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
@@ -68,7 +89,6 @@ struct FolderList: View {
                                 }
                                 Button(action: {
                                     userData.folders.removeAll(where: { $0.id == userData.folders[index].id })
-                                    //userData.saveFolders()
                                 }) {
                                     Text("Delete")
                                     Image(systemName: "trash")
@@ -76,7 +96,6 @@ struct FolderList: View {
                             }
                         }
                     }
-
                 }
             }
         }
@@ -146,6 +165,7 @@ struct FolderList: View {
                 }
                 
                 Spacer()
+                
             }
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -153,7 +173,7 @@ struct FolderList: View {
             .cornerRadius(16)
             .padding()
         }
-
+        
 
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -185,8 +205,6 @@ struct FolderList: View {
                     Image(systemName: "plus")
                 }
             }
-            
-
         }
 
         .sheet(isPresented: $showFolderOrderingView) {
@@ -300,9 +318,7 @@ struct FolderList: View {
                 }
             }
         }
-
     }
-    
 }
 
 struct ImagePicker2: UIViewControllerRepresentable {

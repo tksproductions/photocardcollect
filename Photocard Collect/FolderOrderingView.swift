@@ -2,6 +2,7 @@ import SwiftUI
 struct FolderOrderingView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userData: UserData 
     @Binding var folders: [Folder]
     @FocusState private var isFocused: Bool
     
@@ -63,6 +64,6 @@ struct FolderOrderingView: View {
     }
     
     private func move(from source: IndexSet, to destination: Int) {
-        folders.move(fromOffsets: source, toOffset: destination)
+        userData.folders.move(fromOffsets: source, toOffset: destination)
     }
 }
